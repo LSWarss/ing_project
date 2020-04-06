@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ing_project</string>
+    <string name="usericon">userIcon</string>
 </resources>
