@@ -12,7 +12,6 @@ class PostsViewModel(private val repository: PostsRepository) : ViewModel() {
 
     private lateinit var job : Job
 
-
     private val _posts = MutableLiveData<List<PostItem>>()
     val posts : LiveData<List<PostItem>>
         get() = _posts
@@ -23,7 +22,6 @@ class PostsViewModel(private val repository: PostsRepository) : ViewModel() {
             { _posts.value = it }
         )
     }
-
 
     override fun onCleared() {
         super.onCleared()
