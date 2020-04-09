@@ -15,6 +15,7 @@ import com.lswarss.ing_project.domain.PostItem
 import com.lswarss.ing_project.network.PostsApi
 import com.lswarss.ing_project.repositories.PostsRepository
 import com.lswarss.ing_project.util.RecyclerViewClickListener
+import kotlinx.android.synthetic.main.post_fragment.view.*
 import kotlinx.android.synthetic.main.posts_fragment.*
 
 
@@ -38,10 +39,11 @@ class PostsFragment : Fragment(), RecyclerViewClickListener{
         // changed the viewmodelproviders.of() to new ViewModelProvider
         viewModel = ViewModelProvider(this, factory).get(PostsViewModel::class.java)
         viewModel.getPosts()
+        viewModel.getUsers()
         viewModel.posts.observe(viewLifecycleOwner, Observer {
             posts -> recycler_view_posts.also{
             it.layoutManager = LinearLayoutManager(requireContext())
-            it.adapter = PostsAdapter(posts, this)
+            it.adapter = PostsAdapter(posts,this)
         }
         })
     }

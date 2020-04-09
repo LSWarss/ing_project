@@ -9,6 +9,9 @@ import com.lswarss.ing_project.MainActivity
 import com.lswarss.ing_project.R
 import com.lswarss.ing_project.databinding.PostFragmentBinding
 import com.lswarss.ing_project.domain.PostItem
+import com.lswarss.ing_project.domain.UserItem
+import com.lswarss.ing_project.network.PostsApi
+import com.lswarss.ing_project.network.SafeApiRequest
 import com.lswarss.ing_project.util.RecyclerViewClickListener
 
 class PostsAdapter (
@@ -33,6 +36,7 @@ class PostsAdapter (
 
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
         holder.postFragmentBinding.post = posts[position]
+
         holder.postFragmentBinding.postUser.setOnClickListener{
             listener.onRecyclerViewItemClicked(holder.postFragmentBinding.postUser, posts[position])
         }
