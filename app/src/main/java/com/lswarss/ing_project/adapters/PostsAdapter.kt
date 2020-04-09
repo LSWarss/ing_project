@@ -37,6 +37,7 @@ class PostsAdapter (
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
         holder.postFragmentBinding.post = posts[position]
 
+
         holder.postFragmentBinding.postUser.setOnClickListener{
             listener.onRecyclerViewItemClicked(holder.postFragmentBinding.postUser, posts[position])
         }
