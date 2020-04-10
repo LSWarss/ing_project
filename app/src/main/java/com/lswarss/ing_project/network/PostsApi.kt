@@ -1,9 +1,8 @@
 package com.lswarss.ing_project.network
 
 import com.lswarss.ing_project.domain.PostItem
-import com.lswarss.ing_project.domain.User
 import com.lswarss.ing_project.domain.UserItem
-import retrofit2.Response
+import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -12,25 +11,26 @@ import retrofit2.http.Path
 
 private const val BASE_URL = "https://jsonplaceholder.typicode.com"
 
-interface PostsApi {
+interface PostsApiService {
 
     @GET("/posts")
-    suspend fun getPosts() : Response<List<PostItem>>
+    suspend fun getPostsAsync() : Deferred<List<PostItem>>
 
     @GET("/users")
-    suspend fun getUsers() : Response<List<UserItem>>
+    suspend fun getUsersAsync() : Deferred<List<UserItem>>
 
     @GET("/users/{id}")
-    suspend fun getUserById(@Path("id") id : Int) : Response<UserItem>
+    suspend fun getUserByIdAsync(@Path("id") id : Int) : Deferred<UserItem>
 
-    companion object {
-        operator fun invoke(): PostsApi {
-            return Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(BASE_URL)
-                .build()
-                .create(PostsApi::class.java)
-        }
-    }
 
  }
+
+object PostsApi{
+    val retrofitService : PostsApiService by lazy { retrofit.create(PostsApiService::class.java)}
+}
+
+
+private val retrofit = Retrofit.Builder()
+    .addConverterFactory(GsonConverterFactory.create())
+    .baseUrl(BASE_URL)
+    .build()
