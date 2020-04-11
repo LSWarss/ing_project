@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.lswarss.ing_project.R
 import com.lswarss.ing_project.adapters.PostsAdapter
 import com.lswarss.ing_project.databinding.PostsFragmentBinding
+import kotlinx.android.synthetic.main.posts_fragment.*
 
 
 class PostsFragment : Fragment(){
@@ -27,6 +28,10 @@ class PostsFragment : Fragment(){
         binding.setLifecycleOwner(this)
 
         binding.viewModel = viewModel
+
+        binding.recyclerViewPosts.adapter = PostsAdapter(PostsAdapter.OnClickListener{
+
+        })
 
         setHasOptionsMenu(true)
 
