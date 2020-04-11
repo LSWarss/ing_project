@@ -4,9 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class PostItem(
-    val body: String,
-    val id: Int,
-    val title: String,
-    val userId: Int
+data class Geo(
+    val lat: String,
+    val lng: String
 ) : Parcelable

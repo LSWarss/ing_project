@@ -2,12 +2,18 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.PostsFragment">
 
     <data>
         <variable
             name="post"
             type="com.lswarss.ing_project.domain.PostItem" />
+
+        <variable
+            name="user"
+            type="com.lswarss.ing_project.domain.UserItem" />
+
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,13 +56,13 @@
         android:layout_height="20dp"
         android:layout_marginTop="8dp"
         android:height="20dp"
-        android:text="Lukasz"
+        android:text="@{user.username}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/post_comment"
         app:layout_constraintHorizontal_bias="0.144"
         app:layout_constraintStart_toEndOf="@+id/userView"
         app:layout_constraintTop_toBottomOf="@+id/post_body"
-        tools:text="user" />
+        tools:text="Username" />
 
     <TextView
         android:id="@+id/post_comment"
