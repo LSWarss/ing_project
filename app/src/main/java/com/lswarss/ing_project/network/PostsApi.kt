@@ -1,6 +1,7 @@
 package com.lswarss.ing_project.network
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.lswarss.ing_project.domain.CommentItem
 import com.lswarss.ing_project.domain.PostItem
 import com.lswarss.ing_project.domain.UserItem
 import com.squareup.moshi.Moshi
@@ -25,16 +26,17 @@ interface PostsApiService {
 interface UserApiService {
     @GET("/users")
     fun getUsersAsync() : Deferred<List<UserItem>>
+}
 
-    @GET("/users/{id}")
-    fun getUserByIdAsync(@Path("id") id : Int) : Deferred<UserItem>
-
-
+interface CommentsApiService {
+    @GET("/comments")
+    fun getCommentsAsync() : Deferred<List<CommentItem>>
 }
 
 object PostsApi{
     val postsService : PostsApiService by lazy { retrofit.create(PostsApiService::class.java)}
     val usersService : UserApiService by lazy { retrofit.create(UserApiService::class.java) }
+    val commentsService : CommentsApiService by lazy { retrofit.create((CommentsApiService::class.java))}
 }
 
 

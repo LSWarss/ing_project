@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lswarss.ing_project.domain.CommentItem
 import com.lswarss.ing_project.domain.PostItem
+import com.lswarss.ing_project.network.PostsApiStatus
 import com.lswarss.ing_project.domain.UserItem
 import com.lswarss.ing_project.network.PostsApi
 import kotlinx.coroutines.CoroutineScope
@@ -12,8 +13,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.lang.IllegalStateException
-
-enum class PostsApiStatus { LOADING, ERROR, DONE }
 
 class PostsViewModel() : ViewModel() {
 
@@ -39,7 +38,7 @@ class PostsViewModel() : ViewModel() {
 
     private val _navigateToSelectedPostComments = MutableLiveData<List<CommentItem>>()
 
-    val navigateToSelectedPostCOmment : LiveData<List<CommentItem>>
+    val navigateToSelectedPostComments : LiveData<List<CommentItem>>
         get() = _navigateToSelectedPostComments
 
     private var viewModelJob = Job()
@@ -69,7 +68,6 @@ class PostsViewModel() : ViewModel() {
                             ?: throw IllegalStateException("User not found")
                         UserWithItem(currentUser, it)
                     }
-
                 _status.value = PostsApiStatus.DONE
                 _posts.value = listResult
             } catch (e: Exception) {

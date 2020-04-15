@@ -10,4 +10,13 @@
         android:name="com.lswarss.ing_project.fragments.PostsFragment"
         android:label="posts_fragment"
         tools:layout="@layout/posts_fragment" />
+    <fragment
+        android:id="@+id/commentsFragment"
+        android:name="com.lswarss.ing_project.fragments.CommentsFragment"
+        android:label="comment_fragment"
+        tools:layout="@layout/comment_fragment" />
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.lswarss.ing_project.fragments.UserFragment"
+        android:label="UserFragment" />
 </navigation>

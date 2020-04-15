@@ -3,4 +3,6 @@
     <string name="usericon">userIcon</string>
     <string name="title">Title:</string>
     <string name="comments">Comments</string>
+    <string name="Name">Name:</string>
+    <string name="email">Email:</string>
 </resources>

@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MainActivity">
+    >
 
   <data>
     <variable
@@ -11,6 +11,10 @@
     />
   </data>
 
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      tools:context=".MainActivity">
 
   <androidx.recyclerview.widget.RecyclerView
       android:layout_width="match_parent"
@@ -27,4 +31,15 @@
       tools:listitem="@layout/post_fragment"
       />
 
+    <ImageView
+        android:id="@+id/status_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:postApiStatus="@{viewModel.status}"/>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
