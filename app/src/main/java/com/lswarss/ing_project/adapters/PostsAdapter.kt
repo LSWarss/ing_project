@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.lswarss.ing_project.databinding.PostFragmentBinding
 import com.lswarss.ing_project.domain.PostItem
+import com.lswarss.ing_project.domain.UserItem
+import com.lswarss.ing_project.fragments.UserWithItem
+import com.lswarss.ing_project.network.PostsApi
 
 
 /**
@@ -15,13 +18,14 @@ import com.lswarss.ing_project.domain.PostItem
  * @param onClick a lambda that takes the
  */
 class PostsAdapter (val onClickListener : OnClickListener)
-    : ListAdapter<PostItem, PostsAdapter.PostsViewHolder>(DiffCallback) {
+    : ListAdapter<UserWithItem, PostsAdapter.PostsViewHolder>(DiffCallback) {
 
 
     class PostsViewHolder(private val binding : PostFragmentBinding)
         : RecyclerView.ViewHolder(binding.root){
-        fun bind(post : PostItem){
-            binding.post = post
+        fun bind(post : UserWithItem){
+            binding.post = post.post
+            binding.user = post.user
             // This is important, because it forces the data binding to execute immediately,
             // which allows the RecyclerView to make the correct view size measurements
             binding.executePendingBindings()
@@ -32,13 +36,13 @@ class PostsAdapter (val onClickListener : OnClickListener)
      * Allows the RecyclerView to determine which items have changed when the [List] of [PostItem]
      * has been updated.
      */
-    companion object DiffCallback : DiffUtil.ItemCallback<PostItem>() {
-        override fun areItemsTheSame(oldItem: PostItem, newItem: PostItem): Boolean {
-            return oldItem == newItem
+    companion object DiffCallback : DiffUtil.ItemCallback<UserWithItem>() {
+        override fun areItemsTheSame(oldItem: UserWithItem, newItem: UserWithItem): Boolean {
+            return oldItem.post.id == newItem.post.id
         }
 
-        override fun areContentsTheSame(oldItem: PostItem, newItem: PostItem): Boolean {
-            return oldItem.id == newItem.id
+        override fun areContentsTheSame(oldItem: UserWithItem, newItem: UserWithItem): Boolean {
+            return oldItem == newItem
         }
     }
     /**
@@ -59,8 +63,8 @@ class PostsAdapter (val onClickListener : OnClickListener)
     }
 
 
-    class OnClickListener(val clickListener: (post:PostItem) -> Unit){
-        fun onClick(post:PostItem) = clickListener(post)
+    class OnClickListener(val clickListener: (post:UserWithItem) -> Unit){
+        fun onClick(post:UserWithItem) = clickListener(post)
     }
 
 }

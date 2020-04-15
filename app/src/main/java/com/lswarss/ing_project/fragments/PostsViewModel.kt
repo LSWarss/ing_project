@@ -11,6 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.lang.IllegalStateException
 
 enum class PostsApiStatus { LOADING, ERROR, DONE }
 
@@ -21,9 +22,9 @@ class PostsViewModel() : ViewModel() {
     val status: LiveData<PostsApiStatus>
         get() = _status
 
-    private val _posts = MutableLiveData<List<PostItem>>()
+    private val _posts = MutableLiveData<List<UserWithItem>>()
 
-    val posts : LiveData<List<PostItem>>
+    val posts : LiveData<List<UserWithItem>>
         get() = _posts
 
     private val _users = MutableLiveData<List<UserItem>>()
@@ -53,11 +54,22 @@ class PostsViewModel() : ViewModel() {
     private fun getPostsProperties() {
         coroutineScope.launch {
             // Get the Deferred object for our Retrofit request
-            var getPropertiesDeferred = PostsApi.retrofitService.getPostsAsync()
+            var getPropertiesDeferred = PostsApi.postsService.getPostsAsync()
+            var getUserAsync = PostsApi.usersService.getUsersAsync()
+
             try {
                 _status.value = PostsApiStatus.LOADING
                 // this will run on a thread managed by Retrofit
-                val listResult = getPropertiesDeferred.await()
+                val users = getUserAsync.await()
+                val listResult = getPropertiesDeferred
+                    .await()
+                    .map{
+                        val currentUser = users
+                            .find { user -> user.id == it.userId}
+                            ?: throw IllegalStateException("User not found")
+                        UserWithItem(currentUser, it)
+                    }
+
                 _status.value = PostsApiStatus.DONE
                 _posts.value = listResult
             } catch (e: Exception) {
@@ -73,3 +85,5 @@ class PostsViewModel() : ViewModel() {
     }
 
 }
+
+data class UserWithItem(val user: UserItem, val post: PostItem)

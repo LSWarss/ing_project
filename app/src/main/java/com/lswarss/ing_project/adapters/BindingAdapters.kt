@@ -7,11 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lswarss.ing_project.R
 import com.lswarss.ing_project.domain.PostItem
 import com.lswarss.ing_project.fragments.PostsApiStatus
+import com.lswarss.ing_project.fragments.UserWithItem
 
 @BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView, data: List<PostItem>?){
-    val adapter  = recyclerView.adapter as PostsAdapter
-    adapter.submitList(data)
+fun bindRecyclerView(recyclerView: RecyclerView, data: List<UserWithItem>?){
+    val adapter = recyclerView.adapter as PostsAdapter
+//    adapter.submitList(data)
 }
 
 

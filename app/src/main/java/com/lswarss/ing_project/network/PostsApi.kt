@@ -20,16 +20,21 @@ interface PostsApiService {
     @GET("/posts")
     fun getPostsAsync() : Deferred<List<PostItem>>
 
+ }
+
+interface UserApiService {
     @GET("/users")
     fun getUsersAsync() : Deferred<List<UserItem>>
 
     @GET("/users/{id}")
     fun getUserByIdAsync(@Path("id") id : Int) : Deferred<UserItem>
 
- }
+
+}
 
 object PostsApi{
-    val retrofitService : PostsApiService by lazy { retrofit.create(PostsApiService::class.java)}
+    val postsService : PostsApiService by lazy { retrofit.create(PostsApiService::class.java)}
+    val usersService : UserApiService by lazy { retrofit.create(UserApiService::class.java) }
 }
 
 
