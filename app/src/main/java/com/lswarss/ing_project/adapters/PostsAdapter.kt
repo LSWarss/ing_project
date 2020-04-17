@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lswarss.ing_project.databinding.PostFragmentBinding
 import com.lswarss.ing_project.domain.PostItem
 import com.lswarss.ing_project.domain.UserItem
-import com.lswarss.ing_project.fragments.UserWithItem
+import com.lswarss.ing_project.domain.UserWithItem
 import com.lswarss.ing_project.network.PostsApi
 
 
@@ -17,7 +17,7 @@ import com.lswarss.ing_project.network.PostsApi
  * data, including computing diffs between lists.
  * @param onClick a lambda that takes the
  */
-class PostsAdapter (val onClickListener : OnClickListener)
+class PostsAdapter (private val onClickListener : OnClickListener)
     : ListAdapter<UserWithItem, PostsAdapter.PostsViewHolder>(DiffCallback) {
 
 
@@ -55,11 +55,11 @@ class PostsAdapter (val onClickListener : OnClickListener)
      * Replaces the contents of a view (invoked by the layout manager)
      */
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
-        val post = getItem(position)
+        val userWithItem = getItem(position)
         holder.itemView.setOnClickListener{
-            onClickListener.onClick(post)
+            onClickListener.onClick(userWithItem)
         }
-        holder.bind(post)
+        holder.bind(userWithItem)
     }
 
 

@@ -9,14 +9,26 @@
         android:id="@+id/postsFragment"
         android:name="com.lswarss.ing_project.fragments.PostsFragment"
         android:label="posts_fragment"
-        tools:layout="@layout/posts_fragment" />
+        tools:layout="@layout/posts_fragment">
+        <action
+            android:id="@+id/navigation_to_comments"
+            app:destination="@id/commentsFragment"/>
+        <action
+            android:id="@+id/navigation_to_user"
+            app:destination="@id/userFragment"/>
+    </fragment>
     <fragment
         android:id="@+id/commentsFragment"
-        android:name="com.lswarss.ing_project.fragments.CommentsFragment"
         android:label="comment_fragment"
-        tools:layout="@layout/comment_fragment" />
+        tools:layout="@layout/comments_fragment">
+    </fragment>
     <fragment
         android:id="@+id/userFragment"
         android:name="com.lswarss.ing_project.fragments.UserFragment"
-        android:label="UserFragment" />
+        android:label="UserFragment"
+        tools:layout="@layout/user_fragment">
+        <argument
+            android:name="selectedUser"
+            app:argType="com.lswarss.ing_project.domain.UserWithItem"/>
+    </fragment>
 </navigation>

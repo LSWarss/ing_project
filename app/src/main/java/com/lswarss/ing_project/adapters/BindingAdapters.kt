@@ -6,7 +6,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.lswarss.ing_project.R
 import com.lswarss.ing_project.domain.PostItem
-import com.lswarss.ing_project.fragments.UserWithItem
+import com.lswarss.ing_project.domain.UserWithItem
 import com.lswarss.ing_project.network.PostsApiStatus
 
 @BindingAdapter("listData")
