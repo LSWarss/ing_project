@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/postsFragment"
-        android:name="com.lswarss.ing_project.fragments.PostsFragment"
+        android:name="com.lswarss.ing_project.ui.fragments.PostsFragment"
         android:label="posts_fragment"
         tools:layout="@layout/posts_fragment">
 
@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/userFragment"
-        android:name="com.lswarss.ing_project.fragments.UserFragment"
+        android:name="com.lswarss.ing_project.ui.fragments.UserFragment"
         android:label="UserFragment"
         tools:layout="@layout/user_fragment">
 

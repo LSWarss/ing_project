@@ -1,21 +1,13 @@
 package com.lswarss.ing_project.adapters
 
-import android.app.PendingIntent.getActivity
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.lswarss.ing_project.MainActivity
-import com.lswarss.ing_project.R
 import com.lswarss.ing_project.databinding.PostFragmentBinding
 import com.lswarss.ing_project.domain.PostItem
-import com.lswarss.ing_project.domain.UserItem
 import com.lswarss.ing_project.domain.UserWithItem
-import com.lswarss.ing_project.network.PostsApi
 import kotlinx.android.synthetic.main.post_fragment.view.*
 
 
@@ -24,11 +16,8 @@ import kotlinx.android.synthetic.main.post_fragment.view.*
  * data, including computing diffs between lists.
  * @param onClick a lambda that takes the
  */
-class PostsAdapter ()
+class PostsAdapter ( val onClickListener: OnClickListener)
     : ListAdapter<UserWithItem, PostsAdapter.PostsViewHolder>(DiffCallback) {
-
-    lateinit var navController: NavController
-
 
     class PostsViewHolder(private val binding : PostFragmentBinding)
         : RecyclerView.ViewHolder(binding.root){
@@ -66,11 +55,22 @@ class PostsAdapter ()
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
         val userWithItem = getItem(position)
         holder.bind(userWithItem)
-        navController = Navigation.findNavController(holder.itemView.rootView)
+        holder.itemView.post_user.setOnClickListener {
+            onClickListener.onClick(userWithItem)
+        }
         holder.itemView.post_comment.setOnClickListener {
-            navController!!.navigate(R.id.navigation_to_comments)
+            onClickListener.onClick(userWithItem)
         }
     }
 
+
+    /**
+     * Custom listener that handles clicks on [RecyclerView] items.  Passes the [UserWithItem]
+     * associated with the current item to the [onClick] function.
+     * @param clickListener lambda that will be called with the current [UserWithItem]
+     */
+    class OnClickListener(val clickListener: (marsProperty:UserWithItem) -> Unit) {
+        fun onClick(marsProperty:UserWithItem) = clickListener(marsProperty)
+    }
 
 }

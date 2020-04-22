@@ -1,16 +1,11 @@
-package com.lswarss.ing_project.fragments
+package com.lswarss.ing_project.ui
 
-import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.lswarss.ing_project.domain.CommentItem
-import com.lswarss.ing_project.domain.PostItem
 import com.lswarss.ing_project.network.PostsApiStatus
-import com.lswarss.ing_project.domain.UserItem
 import com.lswarss.ing_project.domain.UserWithItem
 import com.lswarss.ing_project.network.PostsApi
-import kotlinx.android.parcel.Parcelize
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -28,6 +23,16 @@ class PostsViewModel() : ViewModel() {
 
     val posts : LiveData<List<UserWithItem>>
         get() = _posts
+
+    private val _navigateToSelectedUser = MutableLiveData<UserWithItem>()
+
+    val navigateToSelectedUser : LiveData<UserWithItem>
+        get() = _navigateToSelectedUser
+
+    private  val _navigateToSelectedComments = MutableLiveData<UserWithItem>()
+
+    val navigateToSelectedComments : LiveData<UserWithItem>
+        get() = _navigateToSelectedComments
 
 
     private var viewModelJob = Job()
@@ -71,6 +76,20 @@ class PostsViewModel() : ViewModel() {
         viewModelJob.cancel()
     }
 
+    fun displayUserDetail(userWithItem: UserWithItem){
+        _navigateToSelectedUser.value = userWithItem
+    }
 
+    fun displayCommentsForPost(userWithItem: UserWithItem){
+        _navigateToSelectedComments.value = userWithItem
+    }
+
+    fun displayUserDetailComplete(){
+        _navigateToSelectedUser.value = null
+    }
+
+    fun displayCommentsForPostComplete(){
+        _navigateToSelectedComments.value = null
+    }
 }
 

@@ -12,7 +12,7 @@ import com.lswarss.ing_project.network.PostsApiStatus
 @BindingAdapter("listData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<UserWithItem>?){
     val adapter = recyclerView.adapter as PostsAdapter
-////    adapter.submitList(data)
+    adapter.submitList(data)
 }
 
 
