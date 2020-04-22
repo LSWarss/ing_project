@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.lswarss.ing_project.fragments.UserViewModel" />
+            type="com.lswarss.ing_project.ui.UserViewModel" />
     </data>
 
 

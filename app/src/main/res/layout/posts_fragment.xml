@@ -7,7 +7,7 @@
   <data>
     <variable
       name="viewModel"
-      type="com.lswarss.ing_project.fragments.PostsViewModel"
+      type="com.lswarss.ing_project.ui.PostsViewModel"
     />
   </data>
 

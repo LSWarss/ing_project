@@ -7,9 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.lswarss.ing_project.databinding.PostFragmentBinding
 import com.lswarss.ing_project.domain.PostItem
-import com.lswarss.ing_project.domain.UserItem
 import com.lswarss.ing_project.domain.UserWithItem
-import com.lswarss.ing_project.network.PostsApi
+import kotlinx.android.synthetic.main.post_fragment.view.*
 
 
 /**
@@ -17,9 +16,8 @@ import com.lswarss.ing_project.network.PostsApi
  * data, including computing diffs between lists.
  * @param onClick a lambda that takes the
  */
-class PostsAdapter (private val onClickListener : OnClickListener)
+class PostsAdapter ( val onClickListener: OnClickListener)
     : ListAdapter<UserWithItem, PostsAdapter.PostsViewHolder>(DiffCallback) {
-
 
     class PostsViewHolder(private val binding : PostFragmentBinding)
         : RecyclerView.ViewHolder(binding.root){
@@ -56,15 +54,23 @@ class PostsAdapter (private val onClickListener : OnClickListener)
      */
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
         val userWithItem = getItem(position)
-        holder.itemView.setOnClickListener{
+        holder.bind(userWithItem)
+        holder.itemView.post_user.setOnClickListener {
             onClickListener.onClick(userWithItem)
         }
-        holder.bind(userWithItem)
+        holder.itemView.post_comment.setOnClickListener {
+            onClickListener.onClick(userWithItem)
+        }
     }
 
 
-    class OnClickListener(val clickListener: (post:UserWithItem) -> Unit){
-        fun onClick(post:UserWithItem) = clickListener(post)
+    /**
+     * Custom listener that handles clicks on [RecyclerView] items.  Passes the [UserWithItem]
+     * associated with the current item to the [onClick] function.
+     * @param clickListener lambda that will be called with the current [UserWithItem]
+     */
+    class OnClickListener(val clickListener: (marsProperty:UserWithItem) -> Unit) {
+        fun onClick(marsProperty:UserWithItem) = clickListener(marsProperty)
     }
 
 }

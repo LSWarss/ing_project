@@ -1,4 +1,4 @@
-package com.lswarss.ing_project.fragments
+package com.lswarss.ing_project.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,19 +10,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.lswarss.ing_project.adapters.PostsAdapter
 import com.lswarss.ing_project.databinding.PostsFragmentBinding
-import kotlinx.android.synthetic.main.post_fragment.view.*
+import com.lswarss.ing_project.ui.PostsViewModel
 
 
-class PostsFragment : Fragment(){
+class PostsFragment : Fragment() {
 
     private val viewModel : PostsViewModel by lazy {
         ViewModelProvider(this).get(PostsViewModel::class.java)
     }
-
-    private val adapter = PostsAdapter(PostsAdapter.OnClickListener{
-
-    })
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,30 +25,37 @@ class PostsFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         val binding = PostsFragmentBinding.inflate(inflater)
-
         binding.setLifecycleOwner(this)
 
         binding.viewModel = viewModel
 
-        viewModel.posts.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
+        binding.recyclerViewPosts.adapter = PostsAdapter(PostsAdapter.OnClickListener{
+            viewModel.displayUserDetail(it)
         })
 
-        binding.recyclerViewPosts.adapter = PostsAdapter(PostsAdapter.OnClickListener{
-            viewModel.displayUser(it)
-        })
 
         viewModel.navigateToSelectedUser.observe(viewLifecycleOwner, Observer {
             if(null != it){
                 this.findNavController().navigate(PostsFragmentDirections.navigationToUser(it))
-                viewModel.displayUserComplete()
+                viewModel.displayUserDetailComplete()
+            }
+        })
+
+        viewModel.navigateToSelectedComments.observe(viewLifecycleOwner, Observer {
+            if(null != it){
+                this.findNavController().navigate(PostsFragmentDirections.navigationToComments(it))
+                viewModel.displayCommentsForPostComplete()
             }
         })
 
 
-        binding.recyclerViewPosts.adapter = adapter
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
     }
 
 }
