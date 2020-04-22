@@ -22,13 +22,12 @@ import kotlinx.android.synthetic.main.post_fragment.view.*
 
 
 
-class PostsFragment : Fragment(), View.OnClickListener {
+class PostsFragment : Fragment() {
 
     private val viewModel : PostsViewModel by lazy {
         ViewModelProvider(this).get(PostsViewModel::class.java)
     }
 
-    lateinit var navController: NavController
 
     private val adapter = PostsAdapter()
 
@@ -52,21 +51,19 @@ class PostsFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navController = Navigation.findNavController(view)
-        view.findViewById<TextView>(R.id.post_comment).setOnClickListener(this)
-        view.findViewById<TextView>(R.id.post_user).setOnClickListener(this)
+
     }
 
-    override fun onClick(v: View?) {
-        when(v!!.id){
-            R.id.post_user -> {
-                val bundle = bundleOf("postProperties" to UserFragmentArgs)
-                navController!!.navigate(R.id.navigation_to_user)
-            }
-            R.id.post_comment -> {
-                val bundle = bundleOf("postProperties" to CommentsFragmentArgs)
-                navController!!.navigate(R.id.navigation_to_comments)
-            }
-        }
-    }
+//    override fun onClick(v: View?) {
+//        when(v!!.id){
+//            R.id.post_user -> {
+//                val bundle = bundleOf("postProperties" to UserFragmentArgs)
+//                navController!!.navigate(R.id.navigation_to_user)
+//            }
+//            R.id.post_comment -> {
+//                val bundle = bundleOf("postProperties" to CommentsFragmentArgs)
+//                navController!!.navigate(R.id.navigation_to_comments)
+//            }
+//        }
+//    }
 }

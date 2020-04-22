@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.lswarss.ing_project.MainActivity
+import com.lswarss.ing_project.R
 import com.lswarss.ing_project.databinding.PostFragmentBinding
 import com.lswarss.ing_project.domain.PostItem
 import com.lswarss.ing_project.domain.UserItem
@@ -25,6 +27,7 @@ import kotlinx.android.synthetic.main.post_fragment.view.*
 class PostsAdapter ()
     : ListAdapter<UserWithItem, PostsAdapter.PostsViewHolder>(DiffCallback) {
 
+    lateinit var navController: NavController
 
 
     class PostsViewHolder(private val binding : PostFragmentBinding)
@@ -63,11 +66,11 @@ class PostsAdapter ()
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
         val userWithItem = getItem(position)
         holder.bind(userWithItem)
+        navController = Navigation.findNavController(holder.itemView.rootView)
+        holder.itemView.post_comment.setOnClickListener {
+            navController!!.navigate(R.id.navigation_to_comments)
+        }
     }
 
-
-    class OnClickListener(val clickListener: (post:UserWithItem) -> Unit){
-        fun onClick(post:UserWithItem) = clickListener(post)
-    }
 
 }
