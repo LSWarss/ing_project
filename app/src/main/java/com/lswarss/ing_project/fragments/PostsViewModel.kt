@@ -29,20 +29,6 @@ class PostsViewModel() : ViewModel() {
     val posts : LiveData<List<UserWithItem>>
         get() = _posts
 
-    private val _users = MutableLiveData<List<UserItem>>()
-
-    val users : LiveData<List<UserItem>>
-        get() = _users
-
-    private val _navigateToSelectedUser = MutableLiveData<UserWithItem>()
-
-    val navigateToSelectedUser : LiveData<UserWithItem>
-        get() = _navigateToSelectedUser
-
-    private val _navigateToSelectedPostComments = MutableLiveData<UserWithItem>()
-
-    val navigateToSelectedPostComments : LiveData<UserWithItem>
-        get() = _navigateToSelectedPostComments
 
     private var viewModelJob = Job()
 
@@ -83,22 +69,6 @@ class PostsViewModel() : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
-    }
-
-    fun displayComments(post : UserWithItem){
-        _navigateToSelectedPostComments.value = post
-    }
-
-    fun displayCommentsComplete(){
-        _navigateToSelectedPostComments.value = null
-    }
-
-    fun displayUser(post : UserWithItem){
-        _navigateToSelectedPostComments.value = post
-    }
-
-    fun displayUserComplete(){
-        _navigateToSelectedPostComments.value = null
     }
 
 

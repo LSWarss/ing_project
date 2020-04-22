@@ -17,7 +17,7 @@ class UserFragment : Fragment() {
     ): View? {
         val binding = UserFragmentBinding.inflate(inflater)
         binding.setLifecycleOwner(this)
-        val userWithItem = UserFragmentArgs.fromBundle(arguments!!).selectedUser
+        val userWithItem = UserFragmentArgs.fromBundle(arguments!!).postProperties
         val viewModelFactory = UserViewModelFactory(userWithItem)
         binding.viewModel = ViewModelProvider(this, viewModelFactory).get(UserViewModel::class.java)
         return binding.root

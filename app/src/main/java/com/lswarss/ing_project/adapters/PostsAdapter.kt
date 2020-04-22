@@ -1,15 +1,20 @@
 package com.lswarss.ing_project.adapters
 
+import android.app.PendingIntent.getActivity
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.lswarss.ing_project.MainActivity
 import com.lswarss.ing_project.databinding.PostFragmentBinding
 import com.lswarss.ing_project.domain.PostItem
 import com.lswarss.ing_project.domain.UserItem
 import com.lswarss.ing_project.domain.UserWithItem
 import com.lswarss.ing_project.network.PostsApi
+import kotlinx.android.synthetic.main.post_fragment.view.*
 
 
 /**
@@ -17,8 +22,9 @@ import com.lswarss.ing_project.network.PostsApi
  * data, including computing diffs between lists.
  * @param onClick a lambda that takes the
  */
-class PostsAdapter (private val onClickListener : OnClickListener)
+class PostsAdapter ()
     : ListAdapter<UserWithItem, PostsAdapter.PostsViewHolder>(DiffCallback) {
+
 
 
     class PostsViewHolder(private val binding : PostFragmentBinding)
@@ -56,9 +62,6 @@ class PostsAdapter (private val onClickListener : OnClickListener)
      */
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
         val userWithItem = getItem(position)
-        holder.itemView.setOnClickListener{
-            onClickListener.onClick(userWithItem)
-        }
         holder.bind(userWithItem)
     }
 
