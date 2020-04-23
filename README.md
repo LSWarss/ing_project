@@ -1,7 +1,10 @@
 # ING Project 
-Project created as a part of cooperation with ING 
+Project created as part of cooperation with ING 
 
 ## Description:
-App main task is to show us a list of post taken from API, and it have some other actions connected with it
+Main task of this app is to fetch post from [JsonPlaceholderAPI](https://jsonplaceholder.typicode.com), moreover gives you functionality like typical forum app like Reddit but simplified. More options and functionality will be added in time.
 
+### App preview: 
 ![](ing_project.gif)
+
+
