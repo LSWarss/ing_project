@@ -12,6 +12,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 private const val BASE_URL = "https://jsonplaceholder.typicode.com"
@@ -31,6 +32,10 @@ interface UserApiService {
 interface CommentsApiService {
     @GET("/comments")
     fun getCommentsAsync() : Deferred<List<CommentItem>>
+
+    @GET("/comments")
+    fun getCommentsAsyncWithId(@Query("postId") postId : Int) : Deferred<List<CommentItem>>
+
 }
 
 object PostsApi{

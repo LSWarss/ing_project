@@ -20,12 +20,12 @@ class UserFragment : Fragment() {
         val application = requireNotNull(activity).application
         val binding = UserFragmentBinding.inflate(inflater)
         binding.setLifecycleOwner(this)
+
         val userWithItem = UserFragmentArgs.fromBundle(arguments!!).postProperties
-        val viewModelFactory = UserViewModelFactory(
-            userWithItem,
-            application
-        )
+
+        val viewModelFactory = UserViewModelFactory(userWithItem, application)
         binding.viewModel = ViewModelProvider(this, viewModelFactory).get(UserViewModel::class.java)
+
         return binding.root
     }
 }

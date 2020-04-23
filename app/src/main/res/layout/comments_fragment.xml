@@ -5,7 +5,10 @@
     >
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.lswarss.ing_project.ui.CommentsViewModel"
+            />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,6 +25,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:listData2="@{viewModel.selectedComments}"
             app:spanCount="1"
             tools:itemCount="1"
             tools:listitem="@layout/comment_fragment"
@@ -35,6 +39,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:postApiStatus="@{viewModel.status}"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

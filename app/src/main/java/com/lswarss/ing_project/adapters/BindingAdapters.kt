@@ -5,6 +5,7 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.lswarss.ing_project.R
+import com.lswarss.ing_project.domain.CommentItem
 import com.lswarss.ing_project.domain.PostItem
 import com.lswarss.ing_project.domain.UserWithItem
 import com.lswarss.ing_project.network.PostsApiStatus
@@ -12,6 +13,12 @@ import com.lswarss.ing_project.network.PostsApiStatus
 @BindingAdapter("listData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<UserWithItem>?){
     val adapter = recyclerView.adapter as PostsAdapter
+    adapter.submitList(data)
+}
+
+@BindingAdapter("listData2")
+fun bindRecyclerView2(recyclerView: RecyclerView, data: List<CommentItem>?){
+    val adapter = recyclerView.adapter as CommentsAdapter
     adapter.submitList(data)
 }
 

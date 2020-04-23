@@ -29,8 +29,10 @@ class PostsFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-        binding.recyclerViewPosts.adapter = PostsAdapter(PostsAdapter.OnClickListener{
+        binding.recyclerViewPosts.adapter = PostsAdapter(PostsAdapter.OnUserListener{
             viewModel.displayUserDetail(it)
+        }, PostsAdapter.OnCommentsListener{
+            viewModel.displayCommentsForPost(it)
         })
 
 
@@ -53,9 +55,5 @@ class PostsFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
 
 }

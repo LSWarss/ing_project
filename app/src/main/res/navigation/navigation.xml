@@ -33,6 +33,7 @@
     <fragment
         android:id="@+id/commentsFragment"
         android:label="comment_fragment"
+        android:name="com.lswarss.ing_project.ui.fragments.CommentsFragment"
         tools:layout="@layout/comments_fragment">
 
         <argument

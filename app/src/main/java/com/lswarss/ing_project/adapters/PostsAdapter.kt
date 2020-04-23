@@ -11,12 +11,7 @@ import com.lswarss.ing_project.domain.UserWithItem
 import kotlinx.android.synthetic.main.post_fragment.view.*
 
 
-/**
- * This class implements a [RecyclerView] [ListAdapter] which uses Data Binding to present [List]
- * data, including computing diffs between lists.
- * @param onClick a lambda that takes the
- */
-class PostsAdapter ( val onClickListener: OnClickListener)
+class PostsAdapter ( val onUserListener: OnUserListener, val onCommentsListener: OnCommentsListener)
     : ListAdapter<UserWithItem, PostsAdapter.PostsViewHolder>(DiffCallback) {
 
     class PostsViewHolder(private val binding : PostFragmentBinding)
@@ -56,21 +51,24 @@ class PostsAdapter ( val onClickListener: OnClickListener)
         val userWithItem = getItem(position)
         holder.bind(userWithItem)
         holder.itemView.post_user.setOnClickListener {
-            onClickListener.onClick(userWithItem)
+            onUserListener.onClick(userWithItem)
         }
         holder.itemView.post_comment.setOnClickListener {
-            onClickListener.onClick(userWithItem)
+            onCommentsListener.onClick(userWithItem)
         }
     }
-
 
     /**
      * Custom listener that handles clicks on [RecyclerView] items.  Passes the [UserWithItem]
      * associated with the current item to the [onClick] function.
      * @param clickListener lambda that will be called with the current [UserWithItem]
      */
-    class OnClickListener(val clickListener: (marsProperty:UserWithItem) -> Unit) {
-        fun onClick(marsProperty:UserWithItem) = clickListener(marsProperty)
+    class OnUserListener(val clickListener: (userWithItem:UserWithItem) -> Unit) {
+        fun onClick(userWithItem:UserWithItem) = clickListener(userWithItem)
+    }
+
+    class OnCommentsListener(val clickListener: (userWithItem:UserWithItem) -> Unit){
+        fun onClick(userWithItem:UserWithItem) = clickListener(userWithItem)
     }
 
 }
