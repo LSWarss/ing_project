@@ -36,7 +36,9 @@ class UserFragment : Fragment(), OnMapReadyCallback{
         val viewModelFactory = UserViewModelFactory(userWithItem, application)
         binding.viewModel = ViewModelProvider(this, viewModelFactory).get(UserViewModel::class.java)
 
+
         return binding.root
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -44,17 +46,16 @@ class UserFragment : Fragment(), OnMapReadyCallback{
         mapView.onCreate(savedInstanceState)
         mapView.onResume()
         mapView.getMapAsync(this)
-
     }
 
     override fun onMapReady(map: GoogleMap?) {
         map?.let{
             googleMap = it
-
         }
-        var user_geo = LatLng(50.2652, 19.0177)
+        val user_geo = LatLng(50.2652, 19.0177)
         map?.addMarker(MarkerOptions().position(user_geo)
-            .title("user_location"));
+            .title("user_location"))
         map?.moveCamera(CameraUpdateFactory.newLatLng(user_geo))
     }
+
 }

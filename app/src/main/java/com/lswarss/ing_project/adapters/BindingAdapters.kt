@@ -4,11 +4,15 @@ import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.maps.CameraUpdate
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.MapView
+import com.google.android.gms.maps.model.LatLng
 import com.lswarss.ing_project.R
 import com.lswarss.ing_project.domain.CommentItem
-import com.lswarss.ing_project.domain.PostItem
 import com.lswarss.ing_project.domain.UserWithItem
 import com.lswarss.ing_project.network.PostsApiStatus
+
 
 @BindingAdapter("listData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<UserWithItem>?){
@@ -39,3 +43,4 @@ fun bindStatus(statusImageView: ImageView, status: PostsApiStatus?) {
         }
     }
 }
+
