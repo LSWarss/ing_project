@@ -6,11 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.lswarss.ing_project.databinding.UserFragmentBinding
+import com.lswarss.ing_project.domain.UserWithItem
 import com.lswarss.ing_project.ui.UserViewModel
 import com.lswarss.ing_project.ui.UserViewModelFactory
+import kotlinx.android.synthetic.main.user_fragment.*
 
-class UserFragment : Fragment() {
+class UserFragment : Fragment(), OnMapReadyCallback{
+
+    private lateinit var googleMap: GoogleMap
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,5 +37,24 @@ class UserFragment : Fragment() {
         binding.viewModel = ViewModelProvider(this, viewModelFactory).get(UserViewModel::class.java)
 
         return binding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        mapView.onCreate(savedInstanceState)
+        mapView.onResume()
+        mapView.getMapAsync(this)
+
+    }
+
+    override fun onMapReady(map: GoogleMap?) {
+        map?.let{
+            googleMap = it
+
+        }
+        var user_geo = LatLng(50.2652, 19.0177)
+        map?.addMarker(MarkerOptions().position(user_geo)
+            .title("user_location"));
+        map?.moveCamera(CameraUpdateFactory.newLatLng(user_geo))
     }
 }
