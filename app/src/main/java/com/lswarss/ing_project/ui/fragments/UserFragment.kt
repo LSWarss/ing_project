@@ -55,7 +55,7 @@ class UserFragment : Fragment(), OnMapReadyCallback{
         map?.let{
             googleMap = it
         }
-        val user_geo = LatLng(userWithItem.user.address.geo.lng.toDouble(), userWithItem.user.address.geo.lat.toDouble())
+        val user_geo = LatLng(userWithItem.user.address.geo.lat.toDouble(), userWithItem.user.address.geo.lng.toDouble())
         Log.d("latitude-onMapReady","${userWithItem.user.address.geo.lat.toDouble()}" )
         Log.d("longitude-onMapReady","${userWithItem.user.address.geo.lng.toDouble()}" )
         map?.addMarker(MarkerOptions().position(user_geo)

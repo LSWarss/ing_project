@@ -26,7 +26,7 @@ class PostsAdapter ( val onUserListener: OnUserListener, val onCommentsListener:
     }
 
     /**
-     * Allows the RecyclerView to determine which items have changed when the [List] of [PostItem]
+     * Allows the RecyclerView to determine which items have changed when the [List] of [UserWithItem]
      * has been updated.
      */
     companion object DiffCallback : DiffUtil.ItemCallback<UserWithItem>() {

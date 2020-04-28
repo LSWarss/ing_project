@@ -5,6 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.lswarss.ing_project.domain.UserWithItem
 
+/**
+ * Simple ViewModel factory that provides the [UserWithItem] and context to the ViewModel.
+ */
 class UserViewModelFactory(
     private val userWithItem: UserWithItem,
     private val application: Application
