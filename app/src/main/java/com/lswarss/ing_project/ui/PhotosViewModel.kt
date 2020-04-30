@@ -1,6 +1,7 @@
 package com.lswarss.ing_project.ui
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,7 +9,6 @@ import androidx.lifecycle.viewModelScope
 import com.lswarss.ing_project.domain.PhotoItem
 import com.lswarss.ing_project.domain.UserWithItem
 import com.lswarss.ing_project.network.PostsApi
-import com.lswarss.ing_project.network.PostsApiStatus
 import kotlinx.coroutines.launch
 
 class PhotosViewModel(user: UserWithItem, app: Application) : AndroidViewModel(app){
@@ -26,16 +26,16 @@ class PhotosViewModel(user: UserWithItem, app: Application) : AndroidViewModel(a
             var getAlbums = PostsApi.photosService.getUserAlbumsAsyncWithId(userId)
             var getPhotos = PostsApi.photosService.getAllPhotosAsync()
 
-            try{
+            try {
                 val albumsForUser= getAlbums.await()
-                val photosResult = getPhotos
-                    .await()
-                    .filter { it.albumId == albumsForUser[1].id }
+                Log.d("ImgRequest-albums", albumsForUser.toString())
+                val photosResult = getPhotos.await()
+                    .filter { list -> list.albumId == albumsForUser[1].id }
+                Log.d("ImgRequest-photos", photosResult.toString())
                 _selectedUserPhotos.value = photosResult
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 _selectedUserPhotos.value = ArrayList()
             }
-
         }
 
 

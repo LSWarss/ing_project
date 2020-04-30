@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.lswarss.ing_project.databinding.PhotoFragmentBinding
 import com.lswarss.ing_project.domain.PhotoItem
 
