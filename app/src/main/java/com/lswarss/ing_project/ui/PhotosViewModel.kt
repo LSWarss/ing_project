@@ -13,10 +13,6 @@ import kotlinx.coroutines.launch
 
 class PhotosViewModel(user: UserWithItem, app: Application) : AndroidViewModel(app){
 
-    private val _status = MutableLiveData<PostsApiStatus>()
-    val status: LiveData<PostsApiStatus>
-        get() = _status
-
     private val _selectedUserPhotos = MutableLiveData<List<PhotoItem>>()
     val selectedUserPhotos : LiveData<List<PhotoItem>>
         get() = _selectedUserPhotos
@@ -31,15 +27,12 @@ class PhotosViewModel(user: UserWithItem, app: Application) : AndroidViewModel(a
             var getPhotos = PostsApi.photosService.getAllPhotosAsync()
 
             try{
-                _status.value = PostsApiStatus.LOADING
                 val albumsForUser= getAlbums.await()
                 val photosResult = getPhotos
                     .await()
                     .filter { it.albumId == albumsForUser[1].id }
-                _status.value = PostsApiStatus.DONE
                 _selectedUserPhotos.value = photosResult
             }catch (e: Exception){
-                _status.value = PostsApiStatus.ERROR
                 _selectedUserPhotos.value = ArrayList()
             }
 

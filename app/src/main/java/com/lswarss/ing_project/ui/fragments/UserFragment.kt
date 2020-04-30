@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.lswarss.ing_project.databinding.UserFragmentBinding
@@ -78,11 +79,8 @@ class UserFragment : Fragment(), OnMapReadyCallback{
         Log.d("longitude-onMapReady","${userWithItem.user.address.geo.lng.toDouble()}" )
         map?.addMarker(MarkerOptions().position(user_geo)
             .title("user_location"))
-        map?.moveCamera(CameraUpdateFactory.newLatLng(user_geo))
-        map?.moveCamera(CameraUpdateFactory.zoomTo(3F))
+        map?.moveCamera(CameraUpdateFactory.newLatLngZoom(user_geo, 3f))
         map?.uiSettings?.isMyLocationButtonEnabled = false
-        map?.uiSettings?.isZoomGesturesEnabled = false
-        map?.uiSettings?.isScrollGesturesEnabled = false
         map?.uiSettings?.isTiltGesturesEnabled = false
     }
 

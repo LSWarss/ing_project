@@ -1,5 +1,6 @@
 package com.lswarss.ing_project.adapters
 
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.core.net.toUri
@@ -64,12 +65,14 @@ fun bindStatus(statusImageView: ImageView, status: PostsApiStatus?) {
 @BindingAdapter("imageURL")
 fun bindImage(imgView: ImageView, imgUrl: String?){
     imgUrl?.let{
-        val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
+        val imgUri = imgUrl.toUri()
+        Log.d("imgUri", imgUri.toString())
         Glide.with(imgView.context)
             .load(imgUri)
             .apply(RequestOptions()
                 .placeholder(R.drawable.loading_animation)
-                .error(R.drawable.ic_broken_image_black_24dp))
+                .error(R.drawable.ic_broken_image_black_24dp)
+            )
             .into(imgView)
     }
 }
