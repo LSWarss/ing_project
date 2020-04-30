@@ -7,12 +7,9 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.google.android.gms.maps.CameraUpdate
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.MapView
-import com.google.android.gms.maps.model.LatLng
 import com.lswarss.ing_project.R
 import com.lswarss.ing_project.domain.CommentItem
+import com.lswarss.ing_project.domain.PhotoItem
 import com.lswarss.ing_project.domain.UserWithItem
 import com.lswarss.ing_project.network.PostsApiStatus
 
@@ -31,6 +28,12 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<UserWithItem>?){
 @BindingAdapter("listData2")
 fun bindRecyclerView2(recyclerView: RecyclerView, data: List<CommentItem>?){
     val adapter = recyclerView.adapter as CommentsAdapter
+    adapter.submitList(data)
+}
+
+@BindingAdapter("listPhotos")
+fun bindRecyclerView3(recyclerView: RecyclerView, data: List<PhotoItem>?){
+    val adapter = recyclerView.adapter as PhotosAdapter
     adapter.submitList(data)
 }
 

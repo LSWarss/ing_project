@@ -4,14 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.lswarss.ing_project.network.PostsApiStatus
 import com.lswarss.ing_project.domain.UserWithItem
 import com.lswarss.ing_project.network.PostsApi
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import com.lswarss.ing_project.network.PostsApiStatus
 import kotlinx.coroutines.launch
-import java.lang.IllegalStateException
 
 class PostsViewModel() : ViewModel() {
 
@@ -38,7 +34,6 @@ class PostsViewModel() : ViewModel() {
     init {
         getPostsProperties()
     }
-
 
     private fun getPostsProperties() {
         viewModelScope.launch {

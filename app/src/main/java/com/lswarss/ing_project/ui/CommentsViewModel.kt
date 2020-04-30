@@ -9,11 +9,7 @@ import com.lswarss.ing_project.domain.CommentItem
 import com.lswarss.ing_project.domain.UserWithItem
 import com.lswarss.ing_project.network.PostsApi
 import com.lswarss.ing_project.network.PostsApiStatus
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.lang.IllegalStateException
 
 class CommentsViewModel(post: UserWithItem, app : Application) : AndroidViewModel(app){
 

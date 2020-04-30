@@ -30,6 +30,7 @@
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"/>
     </fragment>
+
     <fragment
         android:id="@+id/commentsFragment"
         android:label="comment_fragment"
@@ -41,6 +42,7 @@
             app:argType="com.lswarss.ing_project.domain.UserWithItem"/>
 
     </fragment>
+
     <fragment
         android:id="@+id/userFragment"
         android:name="com.lswarss.ing_project.ui.fragments.UserFragment"
@@ -50,6 +52,26 @@
         <argument
             android:name="postProperties"
             app:argType="com.lswarss.ing_project.domain.UserWithItem"/>
+        <action
+            android:id="@+id/action_userFragment_to_photosFragment"
+            app:destination="@id/photosFragment"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
 
     </fragment>
+
+    <fragment
+        android:id="@+id/photosFragment"
+        android:name="com.lswarss.ing_project.ui.fragments.PhotosFragment"
+        android:label="PhotosFragment"
+        tools:layout="@layout/user_photos_fragment">
+
+        <argument
+            android:name="postProperties"
+            app:argType="com.lswarss.ing_project.domain.UserWithItem"/>
+
+    </fragment>
+
 </navigation>
