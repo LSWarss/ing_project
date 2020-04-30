@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.lswarss.ing_project.domain.CommentItem
 import com.lswarss.ing_project.domain.UserWithItem
 import com.lswarss.ing_project.network.PostsApi
@@ -26,16 +27,12 @@ class CommentsViewModel(post: UserWithItem, app : Application) : AndroidViewMode
         get() = _status
 
 
-    private var viewModelJob = Job()
-
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-
     init{
         getComments(post.post.id)
     }
 
     private fun getComments(postId : Int) {
-        coroutineScope.launch {
+        viewModelScope.launch {
             // Get the Deferred object for our Retrofit request
             var getComments = PostsApi.commentsService.getCommentsAsyncWithId(postId)
 
@@ -51,11 +48,5 @@ class CommentsViewModel(post: UserWithItem, app : Application) : AndroidViewMode
             }
         }
     }
-
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
-
 
 }
