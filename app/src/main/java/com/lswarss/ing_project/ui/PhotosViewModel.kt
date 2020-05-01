@@ -30,8 +30,8 @@ class PhotosViewModel(user: UserWithItem, app: Application) : AndroidViewModel(a
                 val albumsForUser= getAlbums.await()
                 Log.d("ImgRequest-albums", albumsForUser.toString())
                 val photosResult = getPhotos.await()
-                    .filter { list -> list.albumId == albumsForUser[1].id }
-                Log.d("ImgRequest-photos", photosResult.toString())
+                    .filter { list -> list.albumId in albumsForUser[0].id..albumsForUser[albumsForUser.size-1].id}
+                Log.d("ImgRequest-photos", photosResult.size.toString())
                 _selectedUserPhotos.value = photosResult
             } catch (e: Exception) {
                 _selectedUserPhotos.value = ArrayList()
