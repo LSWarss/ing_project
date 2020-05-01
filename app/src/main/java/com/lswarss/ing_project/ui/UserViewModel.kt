@@ -16,5 +16,17 @@ class UserViewModel(user: UserWithItem, app : Application) : AndroidViewModel(ap
         _selectedUser.value = user
     }
 
+    private val _navigateToSelectedUserPhotos = MutableLiveData<UserWithItem>()
+
+    val navigateToSelectedUserPhotos : LiveData<UserWithItem>
+        get() = _navigateToSelectedUserPhotos
+
+    fun displayUserDetail(userWithItem: UserWithItem){
+        _navigateToSelectedUserPhotos.value = userWithItem
+    }
+
+    fun displayUserDetailComplete(){
+        _navigateToSelectedUserPhotos.value = null
+    }
 
 }

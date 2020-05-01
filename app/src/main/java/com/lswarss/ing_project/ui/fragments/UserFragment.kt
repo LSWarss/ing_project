@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.maps.CameraUpdate
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -23,6 +24,10 @@ class UserFragment : Fragment(), OnMapReadyCallback{
 
     private lateinit var googleMap: GoogleMap
     private lateinit var userWithItem: UserWithItem
+
+    private val viewModel : UserViewModel by lazy {
+        ViewModelProvider(this).get(UserViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,6 +45,17 @@ class UserFragment : Fragment(), OnMapReadyCallback{
 
         Log.d("latitude", "${userWithItem.user.address.geo.lat.toDouble()}")
         Log.d("longitude","${userWithItem.user.address.geo.lng.toDouble()}" )
+
+        binding.photosBT.setOnClickListener{
+            viewModel.displayUserDetail(userWithItem)
+        }
+
+        viewModel.navigateToSelectedUserPhotos.observe(viewLifecycleOwner, Observer {
+            if(null != it){
+                this.findNavController().navigate(UserFragmentDirections.actionUserFragmentToPhotosFragment(it))
+                viewModel.displayUserDetailComplete()
+            }
+        })
         return binding.root
 
     }
@@ -55,16 +71,13 @@ class UserFragment : Fragment(), OnMapReadyCallback{
         map?.let{
             googleMap = it
         }
-        val user_geo = LatLng(userWithItem.user.address.geo.lng.toDouble(), userWithItem.user.address.geo.lat.toDouble())
+        val user_geo = LatLng(userWithItem.user.address.geo.lat.toDouble(), userWithItem.user.address.geo.lng.toDouble())
         Log.d("latitude-onMapReady","${userWithItem.user.address.geo.lat.toDouble()}" )
         Log.d("longitude-onMapReady","${userWithItem.user.address.geo.lng.toDouble()}" )
         map?.addMarker(MarkerOptions().position(user_geo)
             .title("user_location"))
-        map?.moveCamera(CameraUpdateFactory.newLatLng(user_geo))
-        map?.moveCamera(CameraUpdateFactory.zoomTo(3F))
+        map?.moveCamera(CameraUpdateFactory.newLatLngZoom(user_geo, 3f))
         map?.uiSettings?.isMyLocationButtonEnabled = false
-        map?.uiSettings?.isZoomGesturesEnabled = false
-        map?.uiSettings?.isScrollGesturesEnabled = false
         map?.uiSettings?.isTiltGesturesEnabled = false
     }
 

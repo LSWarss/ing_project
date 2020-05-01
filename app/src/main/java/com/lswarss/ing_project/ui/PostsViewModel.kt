@@ -3,14 +3,11 @@ package com.lswarss.ing_project.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.lswarss.ing_project.network.PostsApiStatus
+import androidx.lifecycle.viewModelScope
 import com.lswarss.ing_project.domain.UserWithItem
 import com.lswarss.ing_project.network.PostsApi
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import com.lswarss.ing_project.network.PostsApiStatus
 import kotlinx.coroutines.launch
-import java.lang.IllegalStateException
 
 class PostsViewModel() : ViewModel() {
 
@@ -34,18 +31,12 @@ class PostsViewModel() : ViewModel() {
     val navigateToSelectedComments : LiveData<UserWithItem>
         get() = _navigateToSelectedComments
 
-
-    private var viewModelJob = Job()
-
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-
     init {
         getPostsProperties()
     }
 
-
     private fun getPostsProperties() {
-        coroutineScope.launch {
+        viewModelScope.launch {
             // Get the Deferred object for our Retrofit request
             var getPropertiesDeferred = PostsApi.postsService.getPostsAsync()
             var getUserAsync = PostsApi.usersService.getUsersAsync()
@@ -71,10 +62,6 @@ class PostsViewModel() : ViewModel() {
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
 
     fun displayUserDetail(userWithItem: UserWithItem){
         _navigateToSelectedUser.value = userWithItem

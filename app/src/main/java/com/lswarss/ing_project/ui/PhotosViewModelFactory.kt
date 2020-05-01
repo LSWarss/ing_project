@@ -8,14 +8,14 @@ import com.lswarss.ing_project.domain.UserWithItem
 /**
  * Simple ViewModel factory that provides the [UserWithItem] and context to the ViewModel.
  */
-class UserViewModelFactory(
+class PhotosViewModelFactory(
     private val userWithItem: UserWithItem,
     private val application: Application
 ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(UserViewModel::class.java)) {
-            return UserViewModel(
+        if (modelClass.isAssignableFrom(PhotosViewModel::class.java)) {
+            return PhotosViewModel(
                 userWithItem,
                 application
             ) as T

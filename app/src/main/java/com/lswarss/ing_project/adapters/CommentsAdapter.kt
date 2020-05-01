@@ -6,11 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.lswarss.ing_project.databinding.CommentFragmentBinding
-import com.lswarss.ing_project.databinding.PostFragmentBinding
 import com.lswarss.ing_project.domain.CommentItem
-import com.lswarss.ing_project.domain.PostItem
-import com.lswarss.ing_project.domain.UserWithItem
-import kotlinx.android.synthetic.main.post_fragment.view.*
 
 class CommentsAdapter ()
     : ListAdapter<CommentItem, CommentsAdapter.CommentsViewHolder>(DiffCallback) {
