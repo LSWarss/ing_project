@@ -18,6 +18,9 @@ interface PostsApiService {
     @GET("/posts")
     fun getPostsAsync() : Deferred<List<PostItem>>
 
+    @GET("/posts")
+    fun getPostsAsyncWithPages(@Query("_page") page : Int) : Deferred<List<PostItem>>
+
  }
 
 interface UserApiService {
