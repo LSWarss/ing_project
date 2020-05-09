@@ -47,34 +47,32 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/post_title"
-            app:layout_constraintVertical_bias="0.019"
+            app:layout_constraintVertical_bias="0.0"
             android:text="@{post.body}"/>
 
         <TextView
             android:id="@+id/post_user"
             android:layout_width="80dp"
             android:layout_height="20dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="16dp"
             android:height="20dp"
             android:text="@{user.username}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/post_comment"
-            app:layout_constraintHorizontal_bias="0.144"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/userView"
-            app:layout_constraintTop_toBottomOf="@+id/post_body"
             tools:text="Username" />
 
         <TextView
             android:id="@+id/post_comment"
             android:layout_width="80dp"
             android:layout_height="20dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
-            android:text="@string/comments"
+            android:layout_marginBottom="16dp"
+            android:text="@string/Comments"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/post_body"
-            app:layout_constraintVertical_bias="0.483"
             tools:text="comments" />
 
         <ImageView

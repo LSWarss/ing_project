@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.lswarss.ing_project.adapters.PhotosAdapter
-import com.lswarss.ing_project.databinding.UserPhotosFragmentBinding
+import com.lswarss.ing_project.databinding.FragmentUserPhotosBinding
 import com.lswarss.ing_project.ui.PhotosViewModel
 import com.lswarss.ing_project.ui.PhotosViewModelFactory
 
@@ -19,10 +19,10 @@ class PhotosFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         val application = requireNotNull(activity).application
-        val binding = UserPhotosFragmentBinding.inflate(inflater)
+        val binding = FragmentUserPhotosBinding.inflate(inflater)
         binding.setLifecycleOwner(this)
 
-        val userWithItem = PhotosFragmentArgs.fromBundle(arguments!!).postProperties
+        val userWithItem = PhotosFragmentArgs.fromBundle(requireArguments()).postProperties
 
         val viewModelFactory = PhotosViewModelFactory(userWithItem, application)
         binding.viewModel = ViewModelProvider(this, viewModelFactory).get(PhotosViewModel::class.java)

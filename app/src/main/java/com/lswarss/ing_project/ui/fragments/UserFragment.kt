@@ -14,11 +14,11 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.lswarss.ing_project.databinding.UserFragmentBinding
+import com.lswarss.ing_project.databinding.FragmentUserBinding
 import com.lswarss.ing_project.domain.UserWithItem
 import com.lswarss.ing_project.ui.UserViewModel
 import com.lswarss.ing_project.ui.UserViewModelFactory
-import kotlinx.android.synthetic.main.user_fragment.*
+import kotlinx.android.synthetic.main.fragment_user.*
 
 class UserFragment : Fragment(), OnMapReadyCallback{
 
@@ -35,10 +35,10 @@ class UserFragment : Fragment(), OnMapReadyCallback{
         savedInstanceState: Bundle?
     ): View? {
         val application = requireNotNull(activity).application
-        val binding = UserFragmentBinding.inflate(inflater)
+        val binding = FragmentUserBinding.inflate(inflater)
         binding.setLifecycleOwner(this)
 
-        userWithItem = UserFragmentArgs.fromBundle(arguments!!).postProperties
+        userWithItem = UserFragmentArgs.fromBundle(requireArguments()).postProperties
 
         val viewModelFactory = UserViewModelFactory(userWithItem, application)
         binding.viewModel = ViewModelProvider(this, viewModelFactory).get(UserViewModel::class.java)

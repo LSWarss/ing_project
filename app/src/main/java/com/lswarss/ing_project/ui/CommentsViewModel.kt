@@ -7,8 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.lswarss.ing_project.domain.CommentItem
 import com.lswarss.ing_project.domain.UserWithItem
-import com.lswarss.ing_project.network.PostsApi
 import com.lswarss.ing_project.network.PostsApiStatus
+import com.lswarss.ing_project.network.RetrofitInstance
 import kotlinx.coroutines.launch
 
 class CommentsViewModel(post: UserWithItem, app : Application) : AndroidViewModel(app){
@@ -30,7 +30,7 @@ class CommentsViewModel(post: UserWithItem, app : Application) : AndroidViewMode
     private fun getComments(postId : Int) {
         viewModelScope.launch {
             // Get the Deferred object for our Retrofit request
-            var getComments = PostsApi.commentsService.getCommentsAsyncWithId(postId)
+            var getComments = RetrofitInstance.api.getCommentsAsyncWithId(postId)
 
             try {
                 _status.value = PostsApiStatus.LOADING

@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lswarss.ing_project.domain.UserWithItem
-import com.lswarss.ing_project.network.PostsApi
 import com.lswarss.ing_project.network.PostsApiStatus
+import com.lswarss.ing_project.network.RetrofitInstance
 import kotlinx.coroutines.launch
 
 class PostsViewModel() : ViewModel() {
@@ -20,6 +20,9 @@ class PostsViewModel() : ViewModel() {
 
     val posts : LiveData<List<UserWithItem>>
         get() = _posts
+
+    var postPagingStart = 0;
+    var postPagingLimit = 10;
 
     private val _navigateToSelectedUser = MutableLiveData<UserWithItem>()
 
@@ -35,11 +38,11 @@ class PostsViewModel() : ViewModel() {
         getPostsProperties()
     }
 
-    private fun getPostsProperties() {
+     fun getPostsProperties() {
         viewModelScope.launch {
             // Get the Deferred object for our Retrofit request
-            var getPropertiesDeferred = PostsApi.postsService.getPostsAsync()
-            var getUserAsync = PostsApi.usersService.getUsersAsync()
+            val getPropertiesDeferred = RetrofitInstance.api.getPostsAsync(postPagingStart, postPagingLimit)
+            val getUserAsync = RetrofitInstance.api.getUsersAsync()
 
             try {
                 _status.value = PostsApiStatus.LOADING
@@ -61,7 +64,6 @@ class PostsViewModel() : ViewModel() {
             }
         }
     }
-
 
     fun displayUserDetail(userWithItem: UserWithItem){
         _navigateToSelectedUser.value = userWithItem
