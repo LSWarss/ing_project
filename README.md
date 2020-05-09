@@ -16,6 +16,6 @@ I do not really know if the architecture and project is not a little bit too ove
 4. Adding user profile picture in User Fragment
 
 ### App preview: 
-![](ing_project.gif)
+![](ing_project.mp4)
 
 
