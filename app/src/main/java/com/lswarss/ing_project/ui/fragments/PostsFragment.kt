@@ -5,18 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
-import android.widget.GridLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lswarss.ing_project.adapters.PostsAdapter
 import com.lswarss.ing_project.databinding.FragmentPostsBinding
-import com.lswarss.ing_project.network.PostsApi
-import com.lswarss.ing_project.network.PostsApiStatus
 import com.lswarss.ing_project.ui.PostsViewModel
 
 
@@ -65,7 +61,6 @@ class PostsFragment : Fragment() {
 
         return binding.root
     }
-
 
     var isLoading = false
     var isLastPage = false
