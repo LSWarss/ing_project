@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.lswarss.ing_project.domain.PhotoItem
 import com.lswarss.ing_project.domain.UserWithItem
-import com.lswarss.ing_project.network.PostsApi
+import com.lswarss.ing_project.network.RetrofitInstance
 import kotlinx.coroutines.launch
 
 class PhotosViewModel(user: UserWithItem, app: Application) : AndroidViewModel(app){
@@ -23,8 +23,8 @@ class PhotosViewModel(user: UserWithItem, app: Application) : AndroidViewModel(a
 
     private fun getPhotos(userId: Int){
         viewModelScope.launch {
-            var getAlbums = PostsApi.photosService.getUserAlbumsAsyncWithId(userId)
-            var getPhotos = PostsApi.photosService.getAllPhotosAsync()
+            var getAlbums = RetrofitInstance.api.getUserAlbumsAsyncWithId(userId)
+            var getPhotos = RetrofitInstance.api.getAllPhotosAsync()
 
             try {
                 val albumsForUser= getAlbums.await()

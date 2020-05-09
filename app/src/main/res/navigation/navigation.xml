@@ -9,7 +9,7 @@
         android:id="@+id/postsFragment"
         android:name="com.lswarss.ing_project.ui.fragments.PostsFragment"
         android:label="posts_fragment"
-        tools:layout="@layout/posts_fragment">
+        tools:layout="@layout/fragment_posts">
 
         <argument
             android:name="postProperties"
@@ -35,7 +35,7 @@
         android:id="@+id/commentsFragment"
         android:label="comment_fragment"
         android:name="com.lswarss.ing_project.ui.fragments.CommentsFragment"
-        tools:layout="@layout/comments_fragment">
+        tools:layout="@layout/fragment_comments">
 
         <argument
             android:name="postProperties"
@@ -47,7 +47,7 @@
         android:id="@+id/userFragment"
         android:name="com.lswarss.ing_project.ui.fragments.UserFragment"
         android:label="UserFragment"
-        tools:layout="@layout/user_fragment">
+        tools:layout="@layout/fragment_user">
 
         <argument
             android:name="postProperties"
@@ -66,7 +66,7 @@
         android:id="@+id/photosFragment"
         android:name="com.lswarss.ing_project.ui.fragments.PhotosFragment"
         android:label="PhotosFragment"
-        tools:layout="@layout/user_photos_fragment">
+        tools:layout="@layout/fragment_user_photos">
 
         <argument
             android:name="postProperties"

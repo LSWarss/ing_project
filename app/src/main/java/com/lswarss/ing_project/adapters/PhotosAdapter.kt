@@ -5,13 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.lswarss.ing_project.databinding.PhotoFragmentBinding
+import com.lswarss.ing_project.databinding.ItemPhotoBinding
+
 import com.lswarss.ing_project.domain.PhotoItem
 
 class PhotosAdapter ()
     : ListAdapter<PhotoItem, PhotosAdapter.PhotosViewHolder>(DiffCallback) {
 
-    class PhotosViewHolder(private val binding: PhotoFragmentBinding) :
+    class PhotosViewHolder(private val binding: ItemPhotoBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(photo: PhotoItem) {
             binding.photo = photo
@@ -34,7 +35,7 @@ class PhotosAdapter ()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotosViewHolder {
-        return PhotosViewHolder(PhotoFragmentBinding.inflate(LayoutInflater.from(parent.context)))
+        return PhotosViewHolder(ItemPhotoBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
 

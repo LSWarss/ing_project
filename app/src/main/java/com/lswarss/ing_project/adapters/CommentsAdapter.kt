@@ -5,13 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.lswarss.ing_project.databinding.CommentFragmentBinding
+import com.lswarss.ing_project.databinding.ItemCommentBinding
 import com.lswarss.ing_project.domain.CommentItem
 
 class CommentsAdapter ()
     : ListAdapter<CommentItem, CommentsAdapter.CommentsViewHolder>(DiffCallback) {
 
-    class CommentsViewHolder(private val binding: CommentFragmentBinding) :
+    class CommentsViewHolder(private val binding: ItemCommentBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(comment: CommentItem) {
             binding.comment = comment
@@ -34,7 +34,7 @@ class CommentsAdapter ()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentsViewHolder {
-        return CommentsViewHolder(CommentFragmentBinding.inflate(LayoutInflater.from(parent.context)))
+        return CommentsViewHolder(ItemCommentBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
 

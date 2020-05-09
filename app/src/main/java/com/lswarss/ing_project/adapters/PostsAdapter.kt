@@ -5,15 +5,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.lswarss.ing_project.databinding.PostFragmentBinding
+import com.lswarss.ing_project.databinding.ItemPostBinding
+
 import com.lswarss.ing_project.domain.UserWithItem
-import kotlinx.android.synthetic.main.post_fragment.view.*
+import kotlinx.android.synthetic.main.item_post.view.*
 
 
 class PostsAdapter ( val onUserListener: OnUserListener, val onCommentsListener: OnCommentsListener)
     : ListAdapter<UserWithItem, PostsAdapter.PostsViewHolder>(DiffCallback) {
 
-    class PostsViewHolder(private val binding : PostFragmentBinding)
+    class PostsViewHolder(private val binding : ItemPostBinding)
         : RecyclerView.ViewHolder(binding.root){
         fun bind(post : UserWithItem){
             binding.post = post.post
@@ -41,7 +42,7 @@ class PostsAdapter ( val onUserListener: OnUserListener, val onCommentsListener:
      * Create new [RecyclerView] item views (invoked by the layout manager)
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostsViewHolder {
-        return PostsViewHolder(PostFragmentBinding.inflate(LayoutInflater.from(parent.context)))
+        return PostsViewHolder(ItemPostBinding.inflate(LayoutInflater.from(parent.context)))
     }
     /**
      * Replaces the contents of a view (invoked by the layout manager)
@@ -69,5 +70,8 @@ class PostsAdapter ( val onUserListener: OnUserListener, val onCommentsListener:
     class OnCommentsListener(val clickListener: (userWithItem:UserWithItem) -> Unit){
         fun onClick(userWithItem:UserWithItem) = clickListener(userWithItem)
     }
+
+
+
 
 }
