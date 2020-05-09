@@ -11,6 +11,6 @@ Main task of this app is to fetch post from [JsonPlaceholderAPI](https://jsonpla
 4. Adding user profile picture in User Fragment
 
 ### App preview: 
-![](ing_project.gif)
+![](ezgif.com-video-to-gif.gif)
 
 
