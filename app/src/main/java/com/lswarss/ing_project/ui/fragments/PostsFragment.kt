@@ -62,10 +62,13 @@ class PostsFragment : Fragment() {
         return binding.root
     }
 
-    var isLoading = false
-    var isLastPage = false
+
     var isScrolling = false
 
+    /**
+     * Scrolling and pagination function it has set of variables that will make the pagination as smooth
+     * as possible
+     */
     val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
@@ -75,12 +78,10 @@ class PostsFragment : Fragment() {
             val visibleItemCount = layoutManager.childCount
             val totalItemCount = layoutManager.itemCount
 
-
-            val isNotLoadingAndNotLastPage = !isLoading && !isLastPage
             val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
             val isNotAtBeginning = firstVisibleItemPosition >= 0
             val isTotalMoreThenVisible = totalItemCount >= 10
-            val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning && isTotalMoreThenVisible && isScrolling
+            val shouldPaginate =  isAtLastItem && isNotAtBeginning && isTotalMoreThenVisible && isScrolling
             if(shouldPaginate){
                 viewModel.postPagingLimit += 10
                 viewModel.getPostsProperties()

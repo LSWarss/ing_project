@@ -5,11 +5,11 @@
         android:title="Home"
         android:icon="@drawable/ic_posts_home"/>
 
-    <item android:id="@+id/commentsFragment"
+    <item android:id="@+id/savedPostsFragment"
         android:title="Saved Posts"
         android:icon="@drawable/ic_favorite"/>
 
-    <item android:id="@+id/userFragment"
+    <item android:id="@+id/searchFragment"
         android:title="Search Posts"
         android:icon="@drawable/ic_search"/>
 
