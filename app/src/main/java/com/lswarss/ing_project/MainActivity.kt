@@ -21,15 +21,5 @@ class MainActivity : AppCompatActivity() {
         //This set up the bottom navigation  in our app
         bottomNavigationView.setupWithNavController(fragment.findNavController())
 
-        bottomNavigationView.setOnNavigationItemReselectedListener { item: MenuItem ->
-            return@setOnNavigationItemReselectedListener when (item.itemId) {
-                R.id.postsFragment -> {
-                }
-                else -> Snackbar.make(this.bottomNavigationView, "Nothing", Snackbar.LENGTH_SHORT).show()
-            }
-
-        }
-
-
     }
 }
