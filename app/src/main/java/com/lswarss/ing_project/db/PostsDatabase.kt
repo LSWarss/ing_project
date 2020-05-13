@@ -1,18 +1,15 @@
 package com.lswarss.ing_project.db
 
 import android.content.Context
-import androidx.room.*
-import com.lswarss.ing_project.domain.PostItem
-import com.lswarss.ing_project.domain.UserItem
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.lswarss.ing_project.domain.UserWithItem
 
-
-@Database(
-    entities = [UserItem::class,PostItem::class],
-    version = 2,
-    exportSchema = false
-)
-abstract class PostsDatabase : RoomDatabase() {
+@Database( entities = [UserWithItem::class], version = 2)
+@TypeConverters(Converters::class)
+abstract class PostsDatabase : RoomDatabase(){
 
     abstract fun getUserWithItemDao() : UserWithItemDao
 
@@ -37,4 +34,5 @@ abstract class PostsDatabase : RoomDatabase() {
             ).build()
 
     }
+
 }

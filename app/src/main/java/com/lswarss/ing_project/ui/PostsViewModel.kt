@@ -54,7 +54,7 @@ class PostsViewModel() : ViewModel() {
                         val currentUser = users
                             .find { user -> user.id == it.userId}
                             ?: throw IllegalStateException("User not found")
-                        UserWithItem(currentUser, it)
+                        UserWithItem(it.id,currentUser, it)
                     }
                 _status.value = PostsApiStatus.DONE
                 _posts.value = listResult

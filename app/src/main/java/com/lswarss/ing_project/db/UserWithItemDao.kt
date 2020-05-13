@@ -5,17 +5,15 @@ import androidx.room.*
 import com.lswarss.ing_project.domain.UserWithItem
 
 @Dao
-interface UserWithItemDao {
+public interface UserWithItemDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE) //this insert will replace the data if conflicted
-    suspend fun upsert(userWithItem: UserWithItem): Long
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsert(userWithItem : UserWithItem) : Long
 
-    @Transaction
-    @Query("SELECT * FROM Users")
-    fun getAllArticles() : LiveData<List<UserWithItem>>
+    @Query("SELECT * FROM userwithitem")
+    fun getAllUserWithItem() : LiveData<List<UserWithItem>>
 
     @Delete
-    suspend fun deleteArticle(userWithItem: UserWithItem)
-
+    suspend fun deleteUserWithItem(userWithItem: UserWithItem)
 
 }

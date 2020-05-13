@@ -34,7 +34,7 @@ class PhotosFragment : Fragment(){
 
         binding.recyclerViewPosts.adapter = PhotosAdapter(PhotosAdapter.OnClickListener{
             val random =  Random.nextInt(0,3)
-            var mediaPlayer = SoundPicker(random)
+            val mediaPlayer = SoundPicker(random)
             mediaPlayer.isLooping
             mediaPlayer.start()
         })

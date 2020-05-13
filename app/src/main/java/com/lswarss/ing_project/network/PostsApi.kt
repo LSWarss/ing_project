@@ -14,8 +14,6 @@ interface PostsApi{
     @GET("/posts")
     fun getPostsAsync(@Query("_start") postStart: Int, @Query("_limit") postLimit : Int) : Deferred<List<PostItem>>
 
-
-
     @GET("/posts")
     suspend fun getPosts() : Response<List<PostItem>>
 

@@ -1,32 +1,41 @@
 package com.lswarss.ing_project.db
 
 import androidx.room.TypeConverter
-import androidx.room.TypeConverters
 import com.lswarss.ing_project.domain.Address
 import com.lswarss.ing_project.domain.Company
-import com.lswarss.ing_project.domain.PostItem
+import com.lswarss.ing_project.domain.Geo
 import com.lswarss.ing_project.domain.UserItem
 
-class Converters {
+class Converters{
 
     @TypeConverter
-    fun fromUser(user : UserItem) : String {
-        return user.name
+    fun fromAddress(address: Address) : String {
+        return address.zipcode
     }
 
     @TypeConverter
-    fun toUser(address: Address, company : Company, email: String, id: Int, name: String) : UserItem {
-        return UserItem(address, company, email, id, name, name, name , name)
+    fun toAddress(address: String) : Address {
+        return Address(address, Geo(address, address), address, address, address)
     }
 
     @TypeConverter
-    fun fromPost(post : PostItem) : String {
-        return post.title
+    fun fromGeo(geo: Geo) : String {
+        return "lat: " + geo.lat +" lng: "+ geo.lng
     }
 
     @TypeConverter
-    fun toPost(body: String, id : Int, title : String, userId: Int) : PostItem {
-        return PostItem(body, id, title, userId)
+    fun toGeo(latlng : String) : Geo {
+        return Geo(latlng, latlng)
+    }
+
+    @TypeConverter
+    fun fromCompany(company: Company) : String {
+        return company.name
+    }
+
+    @TypeConverter
+    fun toCompany(name : String) : Company {
+        return Company(name, name, name)
     }
 
 
