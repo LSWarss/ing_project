@@ -11,9 +11,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.lswarss.ing_project.MainActivity
 import com.lswarss.ing_project.adapters.PostsAdapter
 import com.lswarss.ing_project.databinding.FragmentPostsBinding
+import com.lswarss.ing_project.db.PostsDatabase
+import com.lswarss.ing_project.repositories.PostsRepository
 import com.lswarss.ing_project.ui.PostsViewModel
+import com.lswarss.ing_project.ui.PostsViewModelProviderFactory
+import com.lswarss.ing_project.ui.UserViewModel
+import com.lswarss.ing_project.ui.UserViewModelFactory
 
 
 class PostsFragment : Fragment() {
@@ -22,6 +28,7 @@ class PostsFragment : Fragment() {
         ViewModelProvider(this).get(PostsViewModel::class.java)
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,8 +36,13 @@ class PostsFragment : Fragment() {
     ): View? {
         val binding = FragmentPostsBinding.inflate(inflater)
         binding.lifecycleOwner = this
+        var db : PostsDatabase = (activity as MainActivity).postsDatabase!!
 
-        binding.viewModel = viewModel
+        var repository = PostsRepository(db)
+        val viewModelFactory = PostsViewModelProviderFactory(repository)
+        binding.viewModel =  ViewModelProvider(this, viewModelFactory).get(PostsViewModel::class.java)
+        viewModel.getPostsProperties()
+
 
         binding.recyclerViewPosts.apply{
             layoutManager = GridLayoutManager(activity,1)

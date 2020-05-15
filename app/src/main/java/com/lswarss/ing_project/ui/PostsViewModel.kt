@@ -7,9 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.lswarss.ing_project.domain.UserWithItem
 import com.lswarss.ing_project.network.PostsApiStatus
 import com.lswarss.ing_project.network.RetrofitInstance
+import com.lswarss.ing_project.repositories.PostsRepository
 import kotlinx.coroutines.launch
 
-class PostsViewModel() : ViewModel() {
+class PostsViewModel(val postsRepository: PostsRepository) : ViewModel() {
 
     private val _status = MutableLiveData<PostsApiStatus>()
 
@@ -34,9 +35,9 @@ class PostsViewModel() : ViewModel() {
     val navigateToSelectedComments : LiveData<UserWithItem>
         get() = _navigateToSelectedComments
 
-    init {
-        getPostsProperties()
-    }
+//    init {
+//        getPostsProperties()
+//    }
 
      fun getPostsProperties() {
         viewModelScope.launch {
@@ -64,6 +65,41 @@ class PostsViewModel() : ViewModel() {
             }
         }
     }
+
+    fun savePosts(userWithItem: UserWithItem) = viewModelScope.launch {
+        postsRepository.upsert(userWithItem)
+    }
+
+    fun searchPosts(searchId: Int) = viewModelScope.launch {
+        val getPostsById = RetrofitInstance.api.getPostsById(searchId)
+        val getUserAsync = RetrofitInstance.api.getUsersAsync()
+
+        try {
+            _status.value = PostsApiStatus.LOADING
+            // this will run on a thread managed by Retrofit
+            val users = getUserAsync.await()
+            val listResult = getPostsById
+                .await()
+                .map{
+                    val currentUser = users
+                        .find { user -> user.id == it.userId}
+                        ?: throw IllegalStateException("User not found")
+                    UserWithItem(it.id,currentUser, it)
+                }
+            _status.value = PostsApiStatus.DONE
+            _posts.value = listResult
+        } catch (e: Exception) {
+            _status.value = PostsApiStatus.ERROR
+            _posts.value = ArrayList()
+        }
+    }
+
+    fun getSavedPosts() = postsRepository.getSavedPosts()
+
+    fun deletePost(userWithItem: UserWithItem) = viewModelScope.launch {
+        postsRepository.delete(userWithItem)
+    }
+
 
     fun displayUserDetail(userWithItem: UserWithItem){
         _navigateToSelectedUser.value = userWithItem

@@ -38,6 +38,8 @@ class PostsAdapter ( val onUserListener: OnUserListener, val onCommentsListener:
             return oldItem == newItem
         }
     }
+
+
     /**
      * Create new [RecyclerView] item views (invoked by the layout manager)
      */
