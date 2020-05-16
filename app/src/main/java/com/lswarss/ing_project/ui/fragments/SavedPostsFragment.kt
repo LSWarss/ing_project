@@ -48,6 +48,8 @@ class SavedPostsFragment : Fragment() {
             viewModel.displayUserDetail(it)
         }, PostsAdapter.OnCommentsListener{
             viewModel.displayCommentsForPost(it)
+        }, PostsAdapter.OnSaveListener{
+            viewModel.deletePost(it)
         })
 
 

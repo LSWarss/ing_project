@@ -11,7 +11,7 @@ import com.lswarss.ing_project.domain.UserWithItem
 import kotlinx.android.synthetic.main.item_post.view.*
 
 
-class PostsAdapter ( val onUserListener: OnUserListener, val onCommentsListener: OnCommentsListener)
+class PostsAdapter ( val onUserListener: OnUserListener, val onCommentsListener: OnCommentsListener, val onSaveListener : OnSaveListener)
     : ListAdapter<UserWithItem, PostsAdapter.PostsViewHolder>(DiffCallback) {
 
     class PostsViewHolder(private val binding : ItemPostBinding)
@@ -31,7 +31,7 @@ class PostsAdapter ( val onUserListener: OnUserListener, val onCommentsListener:
      */
     companion object DiffCallback : DiffUtil.ItemCallback<UserWithItem>() {
         override fun areItemsTheSame(oldItem: UserWithItem, newItem: UserWithItem): Boolean {
-            return oldItem.post.id == newItem.post.id
+            return oldItem.post.id  == newItem.post.id
         }
 
         override fun areContentsTheSame(oldItem: UserWithItem, newItem: UserWithItem): Boolean {
@@ -58,6 +58,9 @@ class PostsAdapter ( val onUserListener: OnUserListener, val onCommentsListener:
         holder.itemView.post_comment.setOnClickListener {
             onCommentsListener.onClick(userWithItem)
         }
+        holder.itemView.savePostsView.setOnClickListener {
+            onSaveListener.onClick(userWithItem)
+        }
     }
 
     /**
@@ -73,6 +76,9 @@ class PostsAdapter ( val onUserListener: OnUserListener, val onCommentsListener:
         fun onClick(userWithItem:UserWithItem) = clickListener(userWithItem)
     }
 
+    class OnSaveListener(val clickListener : (userWithItem:UserWithItem) -> Unit){
+        fun onClick(userWithItem: UserWithItem) = clickListener(userWithItem)
+    }
 
 
 
