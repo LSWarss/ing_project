@@ -46,18 +46,16 @@ class PostsFragment : Fragment() {
 
         binding.recyclerViewPosts.apply{
             layoutManager = GridLayoutManager(activity,1)
+            adapter = PostsAdapter(PostsAdapter.OnUserListener{
+                viewModel.displayUserDetail(it)
+            }, PostsAdapter.OnCommentsListener{
+                viewModel.displayCommentsForPost(it)
+            }, PostsAdapter.OnSaveListener{
+                viewModel.savePosts(it)
+            })
+
             addOnScrollListener(this@PostsFragment.scrollListener)
         }
-
-
-        binding.recyclerViewPosts.adapter = PostsAdapter(PostsAdapter.OnUserListener{
-            viewModel.displayUserDetail(it)
-        }, PostsAdapter.OnCommentsListener{
-            viewModel.displayCommentsForPost(it)
-        }, PostsAdapter.OnSaveListener{
-            viewModel.savePosts(it)
-        })
-
 
         viewModel.navigateToSelectedUser.observe(viewLifecycleOwner, Observer {
             if(null != it){

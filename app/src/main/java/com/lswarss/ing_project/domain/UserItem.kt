@@ -12,10 +12,10 @@ import kotlinx.android.parcel.Parcelize
 data class UserItem(
     val address: Address,
     val company: Company,
-    val email: String,
+    val email: String?,
     val id: Int,
-    val fullName: String,
-    val phone: String,
-    val username: String,
-    val website: String
+    val fullName: String?,
+    val phone: String?,
+    val username: String?,
+    val website: String?
 ) : Parcelable

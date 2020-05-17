@@ -1,5 +1,7 @@
 package com.lswarss.ing_project.ui
 
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -59,6 +61,7 @@ class PostsViewModel(val postsRepository: PostsRepository) : ViewModel() {
                     }
                 _status.value = PostsApiStatus.DONE
                 _posts.value = listResult
+                Log.d("Posts", listResult.toString())
             } catch (e: Exception) {
                 _status.value = PostsApiStatus.ERROR
                 _posts.value = ArrayList()
@@ -67,6 +70,7 @@ class PostsViewModel(val postsRepository: PostsRepository) : ViewModel() {
     }
 
     fun savePosts(userWithItem: UserWithItem) = viewModelScope.launch {
+        Log.d("Save", "Post saved: ${userWithItem.toString()}")
         postsRepository.upsert(userWithItem)
     }
 
@@ -88,6 +92,7 @@ class PostsViewModel(val postsRepository: PostsRepository) : ViewModel() {
                 }
             _status.value = PostsApiStatus.DONE
             _posts.value = listResult
+            Log.d("Search", listResult.toString())
         } catch (e: Exception) {
             _status.value = PostsApiStatus.ERROR
             _posts.value = ArrayList()
@@ -99,7 +104,6 @@ class PostsViewModel(val postsRepository: PostsRepository) : ViewModel() {
     fun deletePost(userWithItem: UserWithItem) = viewModelScope.launch {
         postsRepository.delete(userWithItem)
     }
-
 
     fun displayUserDetail(userWithItem: UserWithItem){
         _navigateToSelectedUser.value = userWithItem

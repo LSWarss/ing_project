@@ -1,6 +1,7 @@
 package com.lswarss.ing_project.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.lswarss.ing_project.MainActivity
+import com.lswarss.ing_project.adapters.CommentsAdapter
 import com.lswarss.ing_project.adapters.PostsAdapter
 import com.lswarss.ing_project.databinding.FragmentPostsBinding
 import com.lswarss.ing_project.db.PostsDatabase
@@ -35,22 +37,19 @@ class SavedPostsFragment : Fragment() {
         var repository = PostsRepository(db)
         val viewModelFactory = PostsViewModelProviderFactory(repository)
         binding.viewModel =  ViewModelProvider(this, viewModelFactory).get(PostsViewModel::class.java)
-        viewModel.getSavedPosts()
 
 
         binding.recyclerViewPosts.apply{
             layoutManager = GridLayoutManager(activity,1)
 //            addOnScrollListener(this@SavedPostsFragment.scrollListener)
+            adapter = PostsAdapter(PostsAdapter.OnUserListener{
+                viewModel.displayUserDetail(it)
+            }, PostsAdapter.OnCommentsListener{
+                viewModel.displayCommentsForPost(it)
+            }, PostsAdapter.OnSaveListener{
+                viewModel.deletePost(it)
+            })
         }
-
-
-        binding.recyclerViewPosts.adapter = PostsAdapter(PostsAdapter.OnUserListener{
-            viewModel.displayUserDetail(it)
-        }, PostsAdapter.OnCommentsListener{
-            viewModel.displayCommentsForPost(it)
-        }, PostsAdapter.OnSaveListener{
-            viewModel.deletePost(it)
-        })
 
 
         viewModel.navigateToSelectedUser.observe(viewLifecycleOwner, Observer {
@@ -67,9 +66,11 @@ class SavedPostsFragment : Fragment() {
             }
         })
 
-        viewModel.getSavedPosts().observe(viewLifecycleOwner, Observer { posts ->
-
+        viewModel.getSavedPosts().observe(viewLifecycleOwner, Observer {
+            posts ->
+            Log.d("Save", viewModel.getSavedPosts().toString())
         })
+
 
 
         return binding.root
