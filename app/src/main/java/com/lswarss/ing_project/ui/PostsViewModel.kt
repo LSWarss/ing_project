@@ -24,6 +24,11 @@ class PostsViewModel(val postsRepository: PostsRepository) : ViewModel() {
     val posts : LiveData<List<UserWithItem>>
         get() = _posts
 
+    private val _searchedPosts = MutableLiveData<List<UserWithItem>>()
+
+    val searchedPosts : LiveData<List<UserWithItem>>
+        get() = _searchedPosts
+
     var postPagingStart = 0;
     var postPagingLimit = 10;
 
@@ -93,11 +98,11 @@ class PostsViewModel(val postsRepository: PostsRepository) : ViewModel() {
                     UserWithItem(it.id,currentUser, it)
                 }
             _status.value = PostsApiStatus.DONE
-            _posts.value = listResult
+            _searchedPosts.value = listResult
             Log.d("Search", listResult.toString())
         } catch (e: Exception) {
             _status.value = PostsApiStatus.ERROR
-            _posts.value = ArrayList()
+            _searchedPosts.value = ArrayList()
         }
     }
 

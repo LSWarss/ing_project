@@ -14,6 +14,7 @@ import com.lswarss.ing_project.MainActivity
 import com.lswarss.ing_project.R
 import com.lswarss.ing_project.adapters.PostsAdapter
 import com.lswarss.ing_project.databinding.FragmentPostsBinding
+import com.lswarss.ing_project.databinding.FragmentSearchBinding
 import com.lswarss.ing_project.db.PostsDatabase
 import com.lswarss.ing_project.repositories.PostsRepository
 import com.lswarss.ing_project.ui.PostsViewModel
@@ -25,26 +26,26 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class SearchFragment : Fragment() {
+class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private val viewModel : PostsViewModel by lazy {
         ViewModelProvider(this).get(PostsViewModel::class.java)
     }
+
+    lateinit var searchedPostsAdapter : PostsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentPostsBinding.inflate(inflater)
+        val binding = FragmentSearchBinding.inflate(inflater)
         binding.lifecycleOwner = this
         var db : PostsDatabase = (activity as MainActivity).postsDatabase!!
 
         var repository = PostsRepository(db)
         val viewModelFactory = PostsViewModelProviderFactory(repository)
         binding.viewModel =  ViewModelProvider(this, viewModelFactory).get(PostsViewModel::class.java)
-
-        viewModel.searchPosts(1)
 
 
         binding.recyclerViewPosts.apply{
@@ -56,6 +57,8 @@ class SearchFragment : Fragment() {
                 viewModel.savePosts(it)
             })
             layoutManager = GridLayoutManager(activity,1)
+
+            searchedPostsAdapter = adapter as PostsAdapter
         }
 
 
@@ -85,6 +88,11 @@ class SearchFragment : Fragment() {
                 viewModel.displayCommentsForPostComplete()
             }
         })
+
+        viewModel.searchedPosts.observe(viewLifecycleOwner, Observer {
+            searchedPostsAdapter.submitList(it)
+        })
+
 
         return binding.root
     }
