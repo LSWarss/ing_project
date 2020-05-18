@@ -26,7 +26,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:listData="@{viewModel.getSavedPosts}"
+            app:listData="@{viewModel.postsListFromDB}"
             tools:listitem="@layout/item_post"
             />
 

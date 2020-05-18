@@ -28,7 +28,6 @@ class PostsFragment : Fragment() {
         ViewModelProvider(this).get(PostsViewModel::class.java)
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

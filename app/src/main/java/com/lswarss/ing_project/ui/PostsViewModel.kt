@@ -1,11 +1,11 @@
 package com.lswarss.ing_project.ui
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lswarss.ing_project.db.UserWithItemDao
 import com.lswarss.ing_project.domain.UserWithItem
 import com.lswarss.ing_project.network.PostsApiStatus
 import com.lswarss.ing_project.network.RetrofitInstance
@@ -38,8 +38,10 @@ class PostsViewModel(val postsRepository: PostsRepository) : ViewModel() {
         get() = _navigateToSelectedComments
 
 //    init {
-//        getPostsProperties()
+//        getSavedPosts()
 //    }
+
+
 
      fun getPostsProperties() {
         viewModelScope.launch {
@@ -70,7 +72,7 @@ class PostsViewModel(val postsRepository: PostsRepository) : ViewModel() {
     }
 
     fun savePosts(userWithItem: UserWithItem) = viewModelScope.launch {
-        Log.d("Save", "Post saved: ${userWithItem.toString()}")
+        Log.d("Save-post", "Post saved: $userWithItem")
         postsRepository.upsert(userWithItem)
     }
 
@@ -99,7 +101,10 @@ class PostsViewModel(val postsRepository: PostsRepository) : ViewModel() {
         }
     }
 
-    fun getSavedPosts() = postsRepository.getSavedPosts()
+    var postsListFromDB: LiveData<List<UserWithItem>>? = null
+    fun getSavedPosts() {
+        postsListFromDB = postsRepository.getSavedPosts()
+    }
 
     fun deletePost(userWithItem: UserWithItem) = viewModelScope.launch {
         postsRepository.delete(userWithItem)
