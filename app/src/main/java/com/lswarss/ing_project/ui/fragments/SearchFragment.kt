@@ -63,7 +63,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
 
         var job: Job? = null
-        binding.recyclerViewPosts.etSearch?.addTextChangedListener{ editable ->
+        binding.etSearch?.addTextChangedListener{ editable ->
             job?.cancel()
             job = MainScope().launch {
                 delay(500L) //TODO: Add class for globals
