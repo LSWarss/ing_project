@@ -4,13 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsListView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.lswarss.ing_project.MainActivity
 import com.lswarss.ing_project.adapters.PostsAdapter
 import com.lswarss.ing_project.databinding.FragmentPostsBinding
@@ -18,15 +16,14 @@ import com.lswarss.ing_project.db.PostsDatabase
 import com.lswarss.ing_project.repositories.PostsRepository
 import com.lswarss.ing_project.ui.PostsViewModel
 import com.lswarss.ing_project.ui.PostsViewModelProviderFactory
-import com.lswarss.ing_project.ui.UserViewModel
-import com.lswarss.ing_project.ui.UserViewModelFactory
 
-
-class PostsFragment : Fragment() {
+class SavedPostsFragment : Fragment() {
 
     private val viewModel : PostsViewModel by lazy {
         ViewModelProvider(this).get(PostsViewModel::class.java)
     }
+
+    lateinit var savedPostsAdapter : PostsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,8 +37,8 @@ class PostsFragment : Fragment() {
         var repository = PostsRepository(db)
         val viewModelFactory = PostsViewModelProviderFactory(repository)
         binding.viewModel =  ViewModelProvider(this, viewModelFactory).get(PostsViewModel::class.java)
-        viewModel.getPostsProperties()
 
+        viewModel.getSavedPosts()
 
         binding.recyclerViewPosts.apply{
             layoutManager = GridLayoutManager(activity,1)
@@ -50,10 +47,11 @@ class PostsFragment : Fragment() {
             }, PostsAdapter.OnCommentsListener{
                 viewModel.displayCommentsForPost(it)
             }, PostsAdapter.OnSaveListener{
-                viewModel.savePosts(it)
+                viewModel.deletePost(it)
             })
 
-            addOnScrollListener(this@PostsFragment.scrollListener)
+            //We initialize savedPostsAdapter with adapter to then use it for submiting a list
+            savedPostsAdapter = adapter as PostsAdapter
         }
 
         viewModel.navigateToSelectedUser.observe(viewLifecycleOwner, Observer {
@@ -70,44 +68,14 @@ class PostsFragment : Fragment() {
             }
         })
 
+        viewModel.postsListFromDB?.observe(viewLifecycleOwner, Observer {
+            savedPostsAdapter.submitList(it)
+        })
+
+
+
         return binding.root
     }
-
-
-    var isScrolling = false
-
-    /**
-     * Scrolling and pagination function it has set of variables that will make the pagination as smooth
-     * as possible
-     */
-    val scrollListener = object : RecyclerView.OnScrollListener() {
-        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-            super.onScrolled(recyclerView, dx, dy)
-
-            val layoutManager = recyclerView.layoutManager as GridLayoutManager
-            val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-            val visibleItemCount = layoutManager.childCount
-            val totalItemCount = layoutManager.itemCount
-
-            val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
-            val isNotAtBeginning = firstVisibleItemPosition >= 0
-            val isTotalMoreThenVisible = totalItemCount >= 10
-            val shouldPaginate =  isAtLastItem && isNotAtBeginning && isTotalMoreThenVisible && isScrolling
-            if(shouldPaginate){
-                viewModel.postPagingLimit += 10
-                viewModel.getPostsProperties()
-                isScrolling = false
-            }
-        }
-
-        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-            super.onScrollStateChanged(recyclerView, newState)
-            if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
-                isScrolling = true
-            }
-        }
-    }
-
 
 
 

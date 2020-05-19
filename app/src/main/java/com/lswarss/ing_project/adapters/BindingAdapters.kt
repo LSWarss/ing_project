@@ -20,7 +20,6 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<UserWithItem>?){
     val adapter = recyclerView.adapter as PostsAdapter
     adapter.submitList(data)
 }
-
 /**
  *  When there is [CommentItem] data it displays in form of recyclerview, and if not it hides the [RecyclerView]
  */

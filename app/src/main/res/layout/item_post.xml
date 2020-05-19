@@ -42,38 +42,36 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="4dp"
+            android:text="@{post.body}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/post_title"
-            app:layout_constraintVertical_bias="0.0"
-            android:text="@{post.body}"/>
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/post_user"
-            android:layout_width="80dp"
+            android:layout_width="50dp"
             android:layout_height="20dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
             android:height="20dp"
             android:text="@{user.username}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/post_comment"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/userView"
+            app:layout_constraintTop_toBottomOf="@+id/post_body"
             tools:text="Username" />
 
         <TextView
             android:id="@+id/post_comment"
             android:layout_width="80dp"
             android:layout_height="20dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
             android:text="@string/Comments"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="comments" />
+            app:layout_constraintStart_toEndOf="@+id/post_user"
+            app:layout_constraintTop_toBottomOf="@+id/post_body"
+            tools:text="@string/Comments" />
 
         <ImageView
             android:id="@+id/userView"
@@ -81,11 +79,26 @@
             android:layout_height="50dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:contentDescription="@string/usericon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/post_body"
             app:srcCompat="@drawable/user_img" />
+
+        <ImageView
+            android:id="@+id/savePostsView"
+            android:layout_width="46dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/ic_favorite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/post_comment"
+            app:layout_constraintTop_toBottomOf="@+id/post_body" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

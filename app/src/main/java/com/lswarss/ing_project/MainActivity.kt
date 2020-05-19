@@ -10,9 +10,12 @@ import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.internal.NavigationMenu
 import com.google.android.material.snackbar.Snackbar
+import com.lswarss.ing_project.db.PostsDatabase
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    var postsDatabase : PostsDatabase? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,14 +24,7 @@ class MainActivity : AppCompatActivity() {
         //This set up the bottom navigation  in our app
         bottomNavigationView.setupWithNavController(fragment.findNavController())
 
-        bottomNavigationView.setOnNavigationItemReselectedListener { item: MenuItem ->
-            return@setOnNavigationItemReselectedListener when (item.itemId) {
-                R.id.postsFragment -> {
-                }
-                else -> Snackbar.make(this.bottomNavigationView, "Nothing", Snackbar.LENGTH_SHORT).show()
-            }
-
-        }
+        postsDatabase = PostsDatabase(this)
 
 
     }

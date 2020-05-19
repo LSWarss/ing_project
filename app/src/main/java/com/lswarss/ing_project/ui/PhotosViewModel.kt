@@ -21,6 +21,8 @@ class PhotosViewModel(user: UserWithItem, app: Application) : AndroidViewModel(a
         getPhotos(user.user.id)
     }
 
+
+
     private fun getPhotos(userId: Int){
         viewModelScope.launch {
             var getAlbums = RetrofitInstance.api.getUserAlbumsAsyncWithId(userId)

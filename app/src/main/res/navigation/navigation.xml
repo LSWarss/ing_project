@@ -73,5 +73,50 @@
             app:argType="com.lswarss.ing_project.domain.UserWithItem"/>
 
     </fragment>
+    <fragment
+        android:id="@+id/savedPostsFragment"
+        android:name="com.lswarss.ing_project.ui.fragments.SavedPostsFragment"
+        android:label="SavedPostsFragment" >
+
+        <argument
+            android:name="postProperties"
+            app:argType="com.lswarss.ing_project.domain.UserWithItem"/>
+
+        <action
+            android:id="@+id/navigation_to_comments"
+            app:destination="@id/commentsFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+        <action
+            android:id="@+id/navigation_to_user"
+            app:destination="@id/userFragment"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.lswarss.ing_project.ui.fragments.SearchFragment"
+        android:label="SearchFragment">
+
+
+        <action
+            android:id="@+id/navigation_to_comments"
+            app:destination="@id/commentsFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+        <action
+            android:id="@+id/navigation_to_user"
+            app:destination="@id/userFragment"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+    </fragment>
 
 </navigation>

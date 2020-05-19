@@ -1,5 +1,6 @@
 package com.lswarss.ing_project.ui.fragments
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.lswarss.ing_project.R
 import com.lswarss.ing_project.databinding.FragmentUserBinding
 import com.lswarss.ing_project.domain.UserWithItem
 import com.lswarss.ing_project.ui.UserViewModel
