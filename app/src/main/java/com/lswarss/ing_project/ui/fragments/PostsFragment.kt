@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.lswarss.ing_project.MainActivity
 import com.lswarss.ing_project.adapters.PostsAdapter
 import com.lswarss.ing_project.databinding.FragmentPostsBinding
@@ -51,6 +53,9 @@ class PostsFragment : Fragment() {
                 viewModel.displayCommentsForPost(it)
             }, PostsAdapter.OnSaveListener{
                 viewModel.savePosts(it)
+                val toast = Toast.makeText(context, "Post Saved", Toast.LENGTH_SHORT)
+                toast.setMargin(0F, 0.1F)
+                toast.show()
             })
 
             addOnScrollListener(this@PostsFragment.scrollListener)

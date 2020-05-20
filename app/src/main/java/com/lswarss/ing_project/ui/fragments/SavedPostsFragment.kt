@@ -43,7 +43,7 @@ class SavedPostsFragment : Fragment() {
         binding.recyclerViewPosts.apply{
             layoutManager = GridLayoutManager(activity,1)
             adapter = PostsAdapter(PostsAdapter.OnUserListener{
-                viewModel.displayUserDetail(it)
+//                viewModel.displayUserDetail(it)
             }, PostsAdapter.OnCommentsListener{
                 viewModel.displayCommentsForPost(it)
             }, PostsAdapter.OnSaveListener{

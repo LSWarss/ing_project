@@ -50,55 +50,50 @@
             app:layout_constraintTop_toBottomOf="@+id/post_title"
             app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
-            android:id="@+id/post_user"
-            android:layout_width="50dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="16dp"
-            android:height="20dp"
-            android:text="@{user.username}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/userView"
-            app:layout_constraintTop_toBottomOf="@+id/post_body"
-            tools:text="Username" />
-
-        <TextView
-            android:id="@+id/post_comment"
-            android:layout_width="80dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="16dp"
-            android:text="@string/Comments"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/post_user"
-            app:layout_constraintTop_toBottomOf="@+id/post_body"
-            tools:text="@string/Comments" />
-
-        <ImageView
-            android:id="@+id/userView"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:contentDescription="@string/usericon"
+        <TableRow
+            android:layout_width="410dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/post_body"
-            app:srcCompat="@drawable/user_img" />
+            app:layout_constraintTop_toBottomOf="@+id/post_body">
 
-        <ImageView
-            android:id="@+id/savePostsView"
-            android:layout_width="46dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:src="@drawable/ic_favorite"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/post_comment"
-            app:layout_constraintTop_toBottomOf="@+id/post_body" />
+            <ImageView
+                android:id="@+id/userView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/usericon"
+                app:srcCompat="@drawable/user_img" />
+
+            <TextView
+                android:id="@+id/post_user"
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:height="20dp"
+                android:text="@{user.username}"
+                tools:text="Username" />
+
+            <TextView
+                android:id="@+id/post_comment"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/Comments"
+                tools:text="@string/Comments" />
+
+            <ImageView
+                android:id="@+id/savePostsView"
+                android:layout_width="41dp"
+                android:layout_height="46dp"
+                android:layout_marginStart="124dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_favorite" />
+
+        </TableRow>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
