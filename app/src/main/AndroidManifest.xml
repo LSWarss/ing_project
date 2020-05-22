@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lswarss.ing_project">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ing_launcher"
@@ -12,13 +12,20 @@
         android:roundIcon="@mipmap/ing_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCDuim6TCxaqI3zD6PAWTXC8Sa0QxKJ-1A"/>
-        <activity android:name=".MainActivity">
+        <activity android:name=".SplashScreenActivity"
+            android:theme="@style/SplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCDuim6TCxaqI3zD6PAWTXC8Sa0QxKJ-1A" />
+
+        <activity android:name=".MainActivity">
         </activity>
     </application>
 
