@@ -5,6 +5,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 private const val BASE_URL = "https://jsonplaceholder.typicode.com"
 
@@ -17,6 +18,8 @@ class RetrofitInstance {
             loggin.setLevel(HttpLoggingInterceptor.Level.BODY)
             val client = OkHttpClient.Builder()
                 .addInterceptor(loggin)
+                .readTimeout(100000.toLong(), TimeUnit.MILLISECONDS)
+                .connectTimeout(50000.toLong(), TimeUnit.MILLISECONDS)
                 .build()
             Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -27,8 +30,9 @@ class RetrofitInstance {
         }
 
         val api by lazy {
-            retrofit.create(PostsApi::class.java)
+            retrofit.create(PostsService::class.java)
         }
+
     }
 
 }

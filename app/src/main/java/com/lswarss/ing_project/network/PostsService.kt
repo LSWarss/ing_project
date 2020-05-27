@@ -7,9 +7,8 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 
-private const val BASE_URL = "https://jsonplaceholder.typicode.com"
 
-interface PostsApi{
+interface PostsService{
 
     @GET("/posts")
     fun getPostsAsync(@Query("_start") postStart: Int, @Query("_limit") postLimit : Int) : Deferred<List<PostItem>>
