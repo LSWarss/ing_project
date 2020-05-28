@@ -8,12 +8,11 @@ import com.lswarss.ing_project.domain.UserWithItem
 interface UserWithItemDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsert(userWithItem : UserWithItem) : Long
+    suspend fun upsert(userWithItem: UserWithItem): Long
 
     @Query("SELECT * FROM userwithitem")
-    fun getAllUserWithItem() : LiveData<List<UserWithItem>>
+    fun getAllUserWithItem(): LiveData<List<UserWithItem>>
 
     @Delete
     suspend fun deleteUserWithItem(userWithItem: UserWithItem)
-
 }

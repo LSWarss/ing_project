@@ -13,14 +13,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.lswarss.ing_project.MainActivity
 import com.lswarss.ing_project.R
 import com.lswarss.ing_project.adapters.PostsAdapter
-import com.lswarss.ing_project.databinding.FragmentPostsBinding
 import com.lswarss.ing_project.databinding.FragmentSearchBinding
 import com.lswarss.ing_project.db.PostsDatabase
 import com.lswarss.ing_project.repositories.PostsRepository
 import com.lswarss.ing_project.ui.PostsViewModel
 import com.lswarss.ing_project.ui.PostsViewModelProviderFactory
-import kotlinx.android.synthetic.main.fragment_search.*
-import kotlinx.android.synthetic.main.fragment_search.view.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -28,11 +25,11 @@ import kotlinx.coroutines.launch
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
 
-    private val viewModel : PostsViewModel by lazy {
+    private val viewModel: PostsViewModel by lazy {
         ViewModelProvider(this).get(PostsViewModel::class.java)
     }
 
-    lateinit var searchedPostsAdapter : PostsAdapter
+    lateinit var searchedPostsAdapter: PostsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,34 +38,35 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     ): View? {
         val binding = FragmentSearchBinding.inflate(inflater)
         binding.lifecycleOwner = this
-        var db : PostsDatabase = (activity as MainActivity).postsDatabase!!
+        var db: PostsDatabase = (activity as MainActivity).postsDatabase!!
 
         var repository = PostsRepository(db)
         val viewModelFactory = PostsViewModelProviderFactory(repository)
-        binding.viewModel =  ViewModelProvider(this, viewModelFactory).get(PostsViewModel::class.java)
+        binding.viewModel =
+            ViewModelProvider(this, viewModelFactory).get(PostsViewModel::class.java)
 
 
-        binding.recyclerViewPosts.apply{
-            adapter = PostsAdapter(PostsAdapter.OnUserListener{
+        binding.recyclerViewPosts.apply {
+            adapter = PostsAdapter(PostsAdapter.OnUserListener {
                 viewModel.displayUserDetail(it)
-            }, PostsAdapter.OnCommentsListener{
+            }, PostsAdapter.OnCommentsListener {
                 viewModel.displayCommentsForPost(it)
-            }, PostsAdapter.OnSaveListener{
+            }, PostsAdapter.OnSaveListener {
                 viewModel.savePosts(it)
             })
-            layoutManager = GridLayoutManager(activity,1)
+            layoutManager = GridLayoutManager(activity, 1)
 
             searchedPostsAdapter = adapter as PostsAdapter
         }
 
 
         var job: Job? = null
-        binding.etSearch?.addTextChangedListener{ editable ->
+        binding.etSearch?.addTextChangedListener { editable ->
             job?.cancel()
             job = MainScope().launch {
                 delay(500L) //TODO: Add class for globals
                 editable?.let {
-                    if(editable.toString().isNotEmpty()){
+                    if (editable.toString().isNotEmpty()) {
                         viewModel.searchPosts(editable.toString().toInt())
                     }
                 }
@@ -76,14 +74,14 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
 
         viewModel.navigateToSelectedUser.observe(viewLifecycleOwner, Observer {
-            if(null != it){
+            if (null != it) {
                 this.findNavController().navigate(PostsFragmentDirections.navigationToUser(it))
                 viewModel.displayUserDetailComplete()
             }
         })
 
         viewModel.navigateToSelectedComments.observe(viewLifecycleOwner, Observer {
-            if(null != it){
+            if (null != it) {
                 this.findNavController().navigate(PostsFragmentDirections.navigationToComments(it))
                 viewModel.displayCommentsForPostComplete()
             }

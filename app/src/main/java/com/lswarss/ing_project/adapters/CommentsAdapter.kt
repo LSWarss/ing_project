@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lswarss.ing_project.databinding.ItemCommentBinding
 import com.lswarss.ing_project.domain.CommentItem
 
-class CommentsAdapter () : ListAdapter<CommentItem, CommentsAdapter.CommentsViewHolder>(DiffCallback) {
+class CommentsAdapter() :
+    ListAdapter<CommentItem, CommentsAdapter.CommentsViewHolder>(DiffCallback) {
 
     class CommentsViewHolder(private val binding: ItemCommentBinding) :
         RecyclerView.ViewHolder(binding.root) {

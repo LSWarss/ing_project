@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import com.lswarss.ing_project.MainActivity
 import com.lswarss.ing_project.adapters.PostsAdapter
 import com.lswarss.ing_project.databinding.FragmentPostsBinding
@@ -20,13 +19,12 @@ import com.lswarss.ing_project.db.PostsDatabase
 import com.lswarss.ing_project.repositories.PostsRepository
 import com.lswarss.ing_project.ui.PostsViewModel
 import com.lswarss.ing_project.ui.PostsViewModelProviderFactory
-import com.lswarss.ing_project.ui.UserViewModel
-import com.lswarss.ing_project.ui.UserViewModelFactory
+import org.koin.android.ext.android.inject
 
 
 class PostsFragment : Fragment() {
 
-    private val viewModel : PostsViewModel by lazy {
+    private val viewModel: PostsViewModel by lazy {
         ViewModelProvider(this).get(PostsViewModel::class.java)
     }
 
@@ -37,21 +35,22 @@ class PostsFragment : Fragment() {
     ): View? {
         val binding = FragmentPostsBinding.inflate(inflater)
         binding.lifecycleOwner = this
-        var db : PostsDatabase = (activity as MainActivity).postsDatabase!!
+        var db: PostsDatabase = (activity as MainActivity).postsDatabase!!
 
         var repository = PostsRepository(db)
         val viewModelFactory = PostsViewModelProviderFactory(repository)
-        binding.viewModel =  ViewModelProvider(this, viewModelFactory).get(PostsViewModel::class.java)
+        binding.viewModel =
+            ViewModelProvider(this, viewModelFactory).get(PostsViewModel::class.java)
         viewModel.getPostsProperties()
 
 
-        binding.recyclerViewPosts.apply{
-            layoutManager = GridLayoutManager(activity,1)
-            adapter = PostsAdapter(PostsAdapter.OnUserListener{
+        binding.recyclerViewPosts.apply {
+            layoutManager = GridLayoutManager(activity, 1)
+            adapter = PostsAdapter(PostsAdapter.OnUserListener {
                 viewModel.displayUserDetail(it)
-            }, PostsAdapter.OnCommentsListener{
+            }, PostsAdapter.OnCommentsListener {
                 viewModel.displayCommentsForPost(it)
-            }, PostsAdapter.OnSaveListener{
+            }, PostsAdapter.OnSaveListener {
                 viewModel.savePosts(it)
                 val toast = Toast.makeText(context, "Post Saved", Toast.LENGTH_SHORT)
                 toast.setMargin(0F, 0.1F)
@@ -62,14 +61,14 @@ class PostsFragment : Fragment() {
         }
 
         viewModel.navigateToSelectedUser.observe(viewLifecycleOwner, Observer {
-            if(null != it){
+            if (null != it) {
                 this.findNavController().navigate(PostsFragmentDirections.navigationToUser(it))
                 viewModel.displayUserDetailComplete()
             }
         })
 
         viewModel.navigateToSelectedComments.observe(viewLifecycleOwner, Observer {
-            if(null != it){
+            if (null != it) {
                 this.findNavController().navigate(PostsFragmentDirections.navigationToComments(it))
                 viewModel.displayCommentsForPostComplete()
             }
@@ -97,8 +96,9 @@ class PostsFragment : Fragment() {
             val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
             val isNotAtBeginning = firstVisibleItemPosition >= 0
             val isTotalMoreThenVisible = totalItemCount >= 10
-            val shouldPaginate =  isAtLastItem && isNotAtBeginning && isTotalMoreThenVisible && isScrolling
-            if(shouldPaginate){
+            val shouldPaginate =
+                isAtLastItem && isNotAtBeginning && isTotalMoreThenVisible && isScrolling
+            if (shouldPaginate) {
                 viewModel.postPagingLimit += 10
                 viewModel.getPostsProperties()
                 isScrolling = false
@@ -107,14 +107,11 @@ class PostsFragment : Fragment() {
 
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
-            if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
+            if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
                 isScrolling = true
             }
         }
     }
-
-
-
 
 
 }

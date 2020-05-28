@@ -31,9 +31,6 @@ class MainCoroutineRule(
 }
 
 
-
-
-
 /**
  * Gets the value of a [LiveData] or waits for it to have one, with a timeout.
  *

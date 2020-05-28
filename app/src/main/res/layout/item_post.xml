@@ -6,6 +6,7 @@
     tools:context=".ui.fragments.PostsFragment">
 
     <data>
+
         <variable
             name="post"
             type="com.lswarss.ing_project.domain.PostItem" />

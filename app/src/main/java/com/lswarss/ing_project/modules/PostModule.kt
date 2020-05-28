@@ -11,11 +11,11 @@ import org.koin.dsl.module
 
 object PostModule {
     val mainModule = module {
-        single { RetrofitInstance()}
+        single { RetrofitInstance() }
         single {
             Room.databaseBuilder(androidContext(), PostsDatabase::class.java, "posts_db").build()
         }
-        single { PostsRepository(db = get())}
-        viewModel { PostsViewModel(postsRepository = get())}
+        single { PostsRepository(db = get()) }
+        viewModel { PostsViewModel(postsRepository = get()) }
     }
 }

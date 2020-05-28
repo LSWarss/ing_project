@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.fragments.CommentsFragment">
 
     <data>
+
         <variable
             name="comment"
             type="com.lswarss.ing_project.domain.CommentItem" />
@@ -30,30 +30,30 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:textStyle="bold"
             android:text="@{comment.name}"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/name_placeholder"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
-            tools:text="id labore ex et quam laborum"/>
+            tools:text="id labore ex et quam laborum" />
 
         <TextView
             android:id="@+id/email"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_marginTop="36dp"
-            android:textStyle="bold"
             android:text="@{comment.email}"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/body"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/email_placeholder"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            tools:text="Eliseo@gardner.biz"/>
+            tools:text="Eliseo@gardner.biz" />
 
         <TextView
             android:id="@+id/email_placeholder"
@@ -78,7 +78,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email_placeholder"
-            tools:text="laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium"/>
+            tools:text="laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

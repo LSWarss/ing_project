@@ -1,7 +1,6 @@
 package com.lswarss.ing_project.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.DiffUtil
@@ -9,12 +8,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.lswarss.ing_project.R
 import com.lswarss.ing_project.databinding.ItemPhotoBinding
-
 import com.lswarss.ing_project.domain.PhotoItem
-import com.lswarss.ing_project.domain.UserWithItem
 
-class PhotosAdapter (val onClickListener : OnClickListener)
-    : ListAdapter<PhotoItem, PhotosAdapter.PhotosViewHolder>(DiffCallback) {
+class PhotosAdapter(val onClickListener: OnClickListener) :
+    ListAdapter<PhotoItem, PhotosAdapter.PhotosViewHolder>(DiffCallback) {
 
     class PhotosViewHolder(private val binding: ItemPhotoBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -46,14 +43,19 @@ class PhotosAdapter (val onClickListener : OnClickListener)
     override fun onBindViewHolder(holder: PhotosViewHolder, position: Int) {
         val photo = getItem(position)
         holder.itemView.setOnClickListener {
-            holder.itemView.startAnimation(AnimationUtils.loadAnimation(it.context, R.anim.image_animation))
+            holder.itemView.startAnimation(
+                AnimationUtils.loadAnimation(
+                    it.context,
+                    R.anim.image_animation
+                )
+            )
             onClickListener.onClick(photo)
         }
         holder.bind(photo)
     }
 
-    class OnClickListener(val clickListener: (photo:PhotoItem) -> Unit) {
-        fun onClick(photo:PhotoItem) = clickListener(photo)
+    class OnClickListener(val clickListener: (photo: PhotoItem) -> Unit) {
+        fun onClick(photo: PhotoItem) = clickListener(photo)
     }
 
 }

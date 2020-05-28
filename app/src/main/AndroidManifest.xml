@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ing_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashScreenActivity"
+        <activity
+            android:name=".SplashScreenActivity"
             android:theme="@style/SplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,8 +26,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCDuim6TCxaqI3zD6PAWTXC8Sa0QxKJ-1A" />
 
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>
