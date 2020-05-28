@@ -1,6 +1,7 @@
 <!-- Project SHIELD -->
 ![GitHub contributors](https://img.shields.io/github/contributors/lswarss/ing_project)
-![GitHub issues](https://img.shields.io/github/issues/lswarss/ing_project)
+![GitHub issues](https://img.shields.io/github/issues-raw/lswarss/ing_project)
+![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/lswarss/ing_project)
 ![GitHub last commit](https://img.shields.io/github/last-commit/lswarss/ing_project)
 
 # Posts/Static Social Media App - ING PROJECT
