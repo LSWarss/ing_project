@@ -42,11 +42,6 @@ class PostsViewModel(val postsRepository: PostsRepository) : ViewModel() {
     val navigateToSelectedComments : LiveData<UserWithItem>
         get() = _navigateToSelectedComments
 
-//    init {
-//        getSavedPosts()
-//    }
-
-
 
      fun getPostsProperties() {
         viewModelScope.launch {

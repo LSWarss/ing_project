@@ -27,7 +27,7 @@ class CommentsViewModel(post: UserWithItem, app : Application) : AndroidViewMode
         getComments(post.post.id)
     }
 
-    private fun getComments(postId : Int) {
+     fun getComments(postId : Int) {
         viewModelScope.launch {
             // Get the Deferred object for our Retrofit request
             var getComments = RetrofitInstance.api.getCommentsAsyncWithId(postId)
@@ -44,5 +44,6 @@ class CommentsViewModel(post: UserWithItem, app : Application) : AndroidViewMode
             }
         }
     }
+
 
 }
