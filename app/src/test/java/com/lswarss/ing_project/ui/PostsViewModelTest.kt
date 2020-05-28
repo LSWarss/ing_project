@@ -4,7 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.lswarss.ing_project.MainCoroutineRule
-import com.lswarss.ing_project.domain.UserWithItem
+import com.lswarss.ing_project.domain.*
 import com.lswarss.ing_project.getOrAwaitValue
 import com.lswarss.ing_project.modules.PostModule
 import com.lswarss.ing_project.network.PostsApiStatus
@@ -18,6 +18,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
+import org.koin.test.get
 import org.koin.test.inject
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
@@ -71,11 +72,22 @@ class PostsViewModelTest : KoinTest{
 
     @Test
     fun `data from db test`(){
-        viewModel.getSavedPosts()
         viewModel.postsListFromDB?.observeForTesting {
+            viewModel.getSavedPosts()
             assertNotNull(viewModel.postsListFromDB?.getOrAwaitValue())
         }
     }
+
+    @Test
+    fun `adding and delete post in db`(){
+        viewModel.postsListFromDB?.observeForTesting {
+            viewModel.savePosts(getfakeUserWithItem())
+            assertTrue((viewModel.postsListFromDB?.getOrAwaitValue())?.last() == getfakeUserWithItem())
+            viewModel.deletePost(getfakeUserWithItem())
+            assertTrue((viewModel.postsListFromDB?.getOrAwaitValue())?.last() != getfakeUserWithItem())
+        }
+    }
+
 
     @Test
     fun `data from search`(){
@@ -85,6 +97,15 @@ class PostsViewModelTest : KoinTest{
         }
     }
 
+}
 
+fun getfakeUserWithItem() : UserWithItem {
+    val postsItem = PostItem("Test", 666, "Test", 666)
+    val address = Address("Test", Geo("0.00", "0.00"), "Test", "Test", "Test")
+    val userItem = UserItem(Address("Test", Geo("0.00", "0.00"), "Test", "Test", "Test"),
+        Company("Test", "Test", "Test"),
+        "Test",666,"Test", "Test", "Test","Test")
+
+    return UserWithItem(666,userItem, postsItem)
 }
 

@@ -15,5 +15,4 @@ interface UserWithItemDao {
 
     @Delete
     suspend fun deleteUserWithItem(userWithItem: UserWithItem)
-
 }

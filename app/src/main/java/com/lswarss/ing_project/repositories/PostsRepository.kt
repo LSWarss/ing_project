@@ -11,5 +11,4 @@ class PostsRepository (val db : PostsDatabase){
 
     suspend fun delete(userWithItem: UserWithItem) = db.getUserWithItemDao().deleteUserWithItem(userWithItem)
 
-
 }
