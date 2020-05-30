@@ -32,5 +32,4 @@ Main task of this app is to fetch post from [JsonPlaceholderAPI](https://jsonpla
 * [Koin](https://insert-koin.io/)
 
 ### App preview: 
-![](ezgif.com-video-to-gif.gif)
-
+<img src="ing_app_dark.gif"/>
