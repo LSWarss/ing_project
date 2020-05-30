@@ -32,4 +32,12 @@ Main task of this app is to fetch post from [JsonPlaceholderAPI](https://jsonpla
 * [Koin](https://insert-koin.io/)
 
 ### App preview: 
-<img src="ing_app_dark.gif"/>
+<div class="row">
+  <div class="column">
+    <img src="ing_app_dark.gif" alt="Dark" height="400xp" width="200px" margin="30px">
+  </div>
+  <div class="column">
+    <img src="ing_app_light.gif" alt="Forest" height="400xp" width="200px">
+ </div>
+ </div>
+
