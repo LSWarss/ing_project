@@ -16,7 +16,7 @@ Project created as part of cooperation with ING
 * [App preview](#app-preview)
 
 ## Project description
-Main task of this app is to fetch post from JsonPlaceholderAPI, moreover, gives you functionality like typical social media app, but simplified and static as for right now. Moreover, it was first mobile development project that involved most of the basic app's components. Moreover, it let me learn Kotlin, basics of android testing, dependency injection etc. 
+Main task of this app is to fetch post from ![JsonPlaceholderAPI](https://jsonplaceholder.typicode.com/), moreover, gives you functionality like typical social media app, but simplified and static as for right now. Moreover, it was first mobile development project that involved most of the basic app's components. Moreover, it let me learn Kotlin, basics of android testing, dependency injection etc. 
 
 ### Built with
 * [Gradle](https://gradle.org/)
