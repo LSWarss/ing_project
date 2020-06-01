@@ -6,26 +6,26 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.lswarss.ing_project.domain.UserWithItem
 
-class UserViewModel(user: UserWithItem, app : Application) : AndroidViewModel(app){
+class UserViewModel(user: UserWithItem, app: Application) : AndroidViewModel(app) {
 
     private val _selectedUser = MutableLiveData<UserWithItem>()
-    val selectedUser : LiveData<UserWithItem>
+    val selectedUser: LiveData<UserWithItem>
         get() = _selectedUser
 
-    init{
+    init {
         _selectedUser.value = user
     }
 
     private val _navigateToSelectedUserPhotos = MutableLiveData<UserWithItem>()
 
-    val navigateToSelectedUserPhotos : LiveData<UserWithItem>
+    val navigateToSelectedUserPhotos: LiveData<UserWithItem>
         get() = _navigateToSelectedUserPhotos
 
-    fun displayUserDetail(userWithItem: UserWithItem){
+    fun displayUserDetail(userWithItem: UserWithItem) {
         _navigateToSelectedUserPhotos.value = userWithItem
     }
 
-    fun displayUserDetailComplete(){
+    fun displayUserDetailComplete() {
         _navigateToSelectedUserPhotos.value = null
     }
 

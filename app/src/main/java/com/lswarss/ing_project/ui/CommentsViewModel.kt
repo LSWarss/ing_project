@@ -11,10 +11,10 @@ import com.lswarss.ing_project.network.PostsApiStatus
 import com.lswarss.ing_project.network.RetrofitInstance
 import kotlinx.coroutines.launch
 
-class CommentsViewModel(post: UserWithItem, app : Application) : AndroidViewModel(app){
+class CommentsViewModel(post: UserWithItem, app: Application) : AndroidViewModel(app) {
 
     private val _selectedComments = MutableLiveData<List<CommentItem>>()
-    val selectedComments : LiveData<List<CommentItem>>
+    val selectedComments: LiveData<List<CommentItem>>
         get() = _selectedComments
 
     private val _status = MutableLiveData<PostsApiStatus>()
@@ -23,11 +23,11 @@ class CommentsViewModel(post: UserWithItem, app : Application) : AndroidViewMode
         get() = _status
 
 
-    init{
+    init {
         getComments(post.post.id)
     }
 
-     fun getComments(postId : Int) {
+    fun getComments(postId: Int) {
         viewModelScope.launch {
             // Get the Deferred object for our Retrofit request
             var getComments = RetrofitInstance.api.getCommentsAsyncWithId(postId)

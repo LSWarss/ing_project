@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.lswarss.ing_project.db.UserWithItemDao
 import com.lswarss.ing_project.domain.UserWithItem
 import com.lswarss.ing_project.network.PostsApiStatus
 import com.lswarss.ing_project.network.RetrofitInstance
@@ -21,12 +20,12 @@ class PostsViewModel(val postsRepository: PostsRepository) : ViewModel() {
 
     private val _posts = MutableLiveData<List<UserWithItem>>()
 
-    val posts : LiveData<List<UserWithItem>>
+    val posts: LiveData<List<UserWithItem>>
         get() = _posts
 
     private val _searchedPosts = MutableLiveData<List<UserWithItem>>()
 
-    val searchedPosts : LiveData<List<UserWithItem>>
+    val searchedPosts: LiveData<List<UserWithItem>>
         get() = _searchedPosts
 
     var postPagingStart = 0;
@@ -34,19 +33,20 @@ class PostsViewModel(val postsRepository: PostsRepository) : ViewModel() {
 
     private val _navigateToSelectedUser = MutableLiveData<UserWithItem>()
 
-    val navigateToSelectedUser : LiveData<UserWithItem>
+    val navigateToSelectedUser: LiveData<UserWithItem>
         get() = _navigateToSelectedUser
 
-    private  val _navigateToSelectedComments = MutableLiveData<UserWithItem>()
+    private val _navigateToSelectedComments = MutableLiveData<UserWithItem>()
 
-    val navigateToSelectedComments : LiveData<UserWithItem>
+    val navigateToSelectedComments: LiveData<UserWithItem>
         get() = _navigateToSelectedComments
 
 
-     fun getPostsProperties() {
+    fun getPostsProperties() {
         viewModelScope.launch {
             // Get the Deferred object for our Retrofit request
-            val getPropertiesDeferred = RetrofitInstance.api.getPostsAsync(postPagingStart, postPagingLimit)
+            val getPropertiesDeferred =
+                RetrofitInstance.api.getPostsAsync(postPagingStart, postPagingLimit)
             val getUserAsync = RetrofitInstance.api.getUsersAsync()
 
             try {
@@ -55,11 +55,11 @@ class PostsViewModel(val postsRepository: PostsRepository) : ViewModel() {
                 val users = getUserAsync.await()
                 val listResult = getPropertiesDeferred
                     .await()
-                    .map{
+                    .map {
                         val currentUser = users
-                            .find { user -> user.id == it.userId}
+                            .find { user -> user.id == it.userId }
                             ?: throw IllegalStateException("User not found")
-                        UserWithItem(it.id,currentUser, it)
+                        UserWithItem(it.id, currentUser, it)
                     }
                 _status.value = PostsApiStatus.DONE
                 _posts.value = listResult
@@ -69,11 +69,6 @@ class PostsViewModel(val postsRepository: PostsRepository) : ViewModel() {
                 _posts.value = ArrayList()
             }
         }
-    }
-
-    fun savePosts(userWithItem: UserWithItem) = viewModelScope.launch {
-        Log.d("Save-post", "Post saved: $userWithItem")
-        postsRepository.upsert(userWithItem)
     }
 
     fun searchPosts(searchId: Int) = viewModelScope.launch {
@@ -86,11 +81,11 @@ class PostsViewModel(val postsRepository: PostsRepository) : ViewModel() {
             val users = getUserAsync.await()
             val listResult = getPostsById
                 .await()
-                .map{
+                .map {
                     val currentUser = users
-                        .find { user -> user.id == it.userId}
+                        .find { user -> user.id == it.userId }
                         ?: throw IllegalStateException("User not found")
-                    UserWithItem(it.id,currentUser, it)
+                    UserWithItem(it.id, currentUser, it)
                 }
             _status.value = PostsApiStatus.DONE
             _searchedPosts.value = listResult
@@ -99,6 +94,11 @@ class PostsViewModel(val postsRepository: PostsRepository) : ViewModel() {
             _status.value = PostsApiStatus.ERROR
             _searchedPosts.value = ArrayList()
         }
+    }
+
+    fun savePosts(userWithItem: UserWithItem) = viewModelScope.launch {
+        Log.d("Save-post", "Post saved: $userWithItem")
+        postsRepository.upsert(userWithItem)
     }
 
     var postsListFromDB: LiveData<List<UserWithItem>>? = null
@@ -110,19 +110,19 @@ class PostsViewModel(val postsRepository: PostsRepository) : ViewModel() {
         postsRepository.delete(userWithItem)
     }
 
-    fun displayUserDetail(userWithItem: UserWithItem){
+    fun displayUserDetail(userWithItem: UserWithItem) {
         _navigateToSelectedUser.value = userWithItem
     }
 
-    fun displayCommentsForPost(userWithItem: UserWithItem){
+    fun displayCommentsForPost(userWithItem: UserWithItem) {
         _navigateToSelectedComments.value = userWithItem
     }
 
-    fun displayUserDetailComplete(){
+    fun displayUserDetailComplete() {
         _navigateToSelectedUser.value = null
     }
 
-    fun displayCommentsForPostComplete(){
+    fun displayCommentsForPostComplete() {
         _navigateToSelectedComments.value = null
     }
 }

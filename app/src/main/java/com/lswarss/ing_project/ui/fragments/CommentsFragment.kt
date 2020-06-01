@@ -25,7 +25,8 @@ class CommentsFragment : Fragment() {
         val userWithItem = CommentsFragmentArgs.fromBundle(requireArguments()).postProperties
 
         val viewModelFactory = CommentsViewModelFactory(userWithItem, application)
-        binding.viewModel = ViewModelProvider(this, viewModelFactory).get(CommentsViewModel::class.java)
+        binding.viewModel =
+            ViewModelProvider(this, viewModelFactory).get(CommentsViewModel::class.java)
 
         binding.recyclerViewPosts.adapter = CommentsAdapter()
 

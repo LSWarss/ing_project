@@ -11,12 +11,15 @@ import com.lswarss.ing_project.domain.UserWithItem
 import kotlinx.android.synthetic.main.item_post.view.*
 
 
-class PostsAdapter ( val onUserListener: OnUserListener, val onCommentsListener: OnCommentsListener, val onSaveListener : OnSaveListener)
-    : ListAdapter<UserWithItem, PostsAdapter.PostsViewHolder>(DiffCallback) {
+class PostsAdapter(
+    val onUserListener: OnUserListener,
+    val onCommentsListener: OnCommentsListener,
+    val onSaveListener: OnSaveListener
+) : ListAdapter<UserWithItem, PostsAdapter.PostsViewHolder>(DiffCallback) {
 
-    class PostsViewHolder(private val binding : ItemPostBinding)
-        : RecyclerView.ViewHolder(binding.root){
-        fun bind(post : UserWithItem){
+    class PostsViewHolder(private val binding: ItemPostBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(post: UserWithItem) {
             binding.post = post.post
             binding.user = post.user
             // This is important, because it forces the data binding to execute immediately,
@@ -31,7 +34,7 @@ class PostsAdapter ( val onUserListener: OnUserListener, val onCommentsListener:
      */
     companion object DiffCallback : DiffUtil.ItemCallback<UserWithItem>() {
         override fun areItemsTheSame(oldItem: UserWithItem, newItem: UserWithItem): Boolean {
-            return oldItem.post.id  == newItem.post.id
+            return oldItem.post.id == newItem.post.id
         }
 
         override fun areContentsTheSame(oldItem: UserWithItem, newItem: UserWithItem): Boolean {
@@ -46,6 +49,7 @@ class PostsAdapter ( val onUserListener: OnUserListener, val onCommentsListener:
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostsViewHolder {
         return PostsViewHolder(ItemPostBinding.inflate(LayoutInflater.from(parent.context)))
     }
+
     /**
      * Replaces the contents of a view (invoked by the layout manager)
      */
@@ -68,18 +72,17 @@ class PostsAdapter ( val onUserListener: OnUserListener, val onCommentsListener:
      * associated with the current item to the [onClick] function.
      * @param clickListener lambda that will be called with the current [UserWithItem]
      */
-    class OnUserListener(val clickListener: (userWithItem:UserWithItem) -> Unit) {
-        fun onClick(userWithItem:UserWithItem) = clickListener(userWithItem)
-    }
-
-    class OnCommentsListener(val clickListener: (userWithItem:UserWithItem) -> Unit){
-        fun onClick(userWithItem:UserWithItem) = clickListener(userWithItem)
-    }
-
-    class OnSaveListener(val clickListener : (userWithItem:UserWithItem) -> Unit){
+    class OnUserListener(val clickListener: (userWithItem: UserWithItem) -> Unit) {
         fun onClick(userWithItem: UserWithItem) = clickListener(userWithItem)
     }
 
+    class OnCommentsListener(val clickListener: (userWithItem: UserWithItem) -> Unit) {
+        fun onClick(userWithItem: UserWithItem) = clickListener(userWithItem)
+    }
+
+    class OnSaveListener(val clickListener: (userWithItem: UserWithItem) -> Unit) {
+        fun onClick(userWithItem: UserWithItem) = clickListener(userWithItem)
+    }
 
 
 }

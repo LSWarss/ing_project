@@ -1,30 +1,29 @@
 package com.lswarss.ing_project.ui
 
 import android.app.Application
-import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.lswarss.ing_project.MainCoroutineRule
 import com.lswarss.ing_project.domain.*
 import com.lswarss.ing_project.getOrAwaitValue
 import com.lswarss.ing_project.modules.PostModule
-import com.lswarss.ing_project.network.PostsApiStatus
 import com.lswarss.ing_project.observeForTesting
 import com.lswarss.ing_project.repositories.PostsRepository
-import com.nhaarman.mockito_kotlin.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.junit.*
-import org.junit.Assert.*
+import org.junit.After
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
-import org.koin.test.get
 import org.koin.test.inject
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
-import java.util.*
 
-class PostsViewModelTest : KoinTest{
+class PostsViewModelTest : KoinTest {
 
 
     val viewModel by inject<PostsViewModel>()
@@ -45,13 +44,13 @@ class PostsViewModelTest : KoinTest{
     val mainCoroutineRule = MainCoroutineRule()
 
     @Mock
-    private lateinit var context : Application
+    private lateinit var context: Application
 
 
     @Before
-    fun before(){
+    fun before() {
         MockitoAnnotations.initMocks(this)
-        startKoin{
+        startKoin {
             modules(PostModule.mainModule)
             androidContext(context)
         }
@@ -71,7 +70,7 @@ class PostsViewModelTest : KoinTest{
     }
 
     @Test
-    fun `data from db test`(){
+    fun `data from db test`() {
         viewModel.postsListFromDB?.observeForTesting {
             viewModel.getSavedPosts()
             assertNotNull(viewModel.postsListFromDB?.getOrAwaitValue())
@@ -79,7 +78,7 @@ class PostsViewModelTest : KoinTest{
     }
 
     @Test
-    fun `adding and delete post in db`(){
+    fun `adding and delete post in db`() {
         viewModel.postsListFromDB?.observeForTesting {
             viewModel.savePosts(getfakeUserWithItem())
             assertTrue((viewModel.postsListFromDB?.getOrAwaitValue())?.last() == getfakeUserWithItem())
@@ -90,7 +89,7 @@ class PostsViewModelTest : KoinTest{
 
 
     @Test
-    fun `data from search`(){
+    fun `data from search`() {
         viewModel.searchPosts(1)
         viewModel.searchedPosts.observeForTesting {
             assertNotNull(viewModel.searchedPosts.getOrAwaitValue())
@@ -99,13 +98,15 @@ class PostsViewModelTest : KoinTest{
 
 }
 
-fun getfakeUserWithItem() : UserWithItem {
+fun getfakeUserWithItem(): UserWithItem {
     val postsItem = PostItem("Test", 666, "Test", 666)
     val address = Address("Test", Geo("0.00", "0.00"), "Test", "Test", "Test")
-    val userItem = UserItem(Address("Test", Geo("0.00", "0.00"), "Test", "Test", "Test"),
+    val userItem = UserItem(
+        Address("Test", Geo("0.00", "0.00"), "Test", "Test", "Test"),
         Company("Test", "Test", "Test"),
-        "Test",666,"Test", "Test", "Test","Test")
+        "Test", 666, "Test", "Test", "Test", "Test"
+    )
 
-    return UserWithItem(666,userItem, postsItem)
+    return UserWithItem(666, userItem, postsItem)
 }
 

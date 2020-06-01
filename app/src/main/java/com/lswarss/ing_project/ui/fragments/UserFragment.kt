@@ -1,6 +1,5 @@
 package com.lswarss.ing_project.ui.fragments
 
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,19 +14,18 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.lswarss.ing_project.R
 import com.lswarss.ing_project.databinding.FragmentUserBinding
 import com.lswarss.ing_project.domain.UserWithItem
 import com.lswarss.ing_project.ui.UserViewModel
 import com.lswarss.ing_project.ui.UserViewModelFactory
 import kotlinx.android.synthetic.main.fragment_user.*
 
-class UserFragment : Fragment(), OnMapReadyCallback{
+class UserFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var googleMap: GoogleMap
     private lateinit var userWithItem: UserWithItem
 
-    private val viewModel : UserViewModel by lazy {
+    private val viewModel: UserViewModel by lazy {
         ViewModelProvider(this).get(UserViewModel::class.java)
     }
 
@@ -46,15 +44,16 @@ class UserFragment : Fragment(), OnMapReadyCallback{
         binding.viewModel = ViewModelProvider(this, viewModelFactory).get(UserViewModel::class.java)
 
         Log.d("latitude", "${userWithItem.user.address.geo.lat.toDouble()}")
-        Log.d("longitude","${userWithItem.user.address.geo.lng.toDouble()}" )
+        Log.d("longitude", "${userWithItem.user.address.geo.lng.toDouble()}")
 
-        binding.photosBT.setOnClickListener{
+        binding.photosBT.setOnClickListener {
             viewModel.displayUserDetail(userWithItem)
         }
 
         viewModel.navigateToSelectedUserPhotos.observe(viewLifecycleOwner, Observer {
-            if(null != it){
-                this.findNavController().navigate(UserFragmentDirections.actionUserFragmentToPhotosFragment(it))
+            if (null != it) {
+                this.findNavController()
+                    .navigate(UserFragmentDirections.actionUserFragmentToPhotosFragment(it))
                 viewModel.displayUserDetailComplete()
             }
         })
@@ -70,14 +69,19 @@ class UserFragment : Fragment(), OnMapReadyCallback{
     }
 
     override fun onMapReady(map: GoogleMap?) {
-        map?.let{
+        map?.let {
             googleMap = it
         }
-        val user_geo = LatLng(userWithItem.user.address.geo.lat.toDouble(), userWithItem.user.address.geo.lng.toDouble())
-        Log.d("latitude-onMapReady","${userWithItem.user.address.geo.lat.toDouble()}" )
-        Log.d("longitude-onMapReady","${userWithItem.user.address.geo.lng.toDouble()}" )
-        map?.addMarker(MarkerOptions().position(user_geo)
-            .title("user_location"))
+        val user_geo = LatLng(
+            userWithItem.user.address.geo.lat.toDouble(),
+            userWithItem.user.address.geo.lng.toDouble()
+        )
+        Log.d("latitude-onMapReady", "${userWithItem.user.address.geo.lat.toDouble()}")
+        Log.d("longitude-onMapReady", "${userWithItem.user.address.geo.lng.toDouble()}")
+        map?.addMarker(
+            MarkerOptions().position(user_geo)
+                .title("user_location")
+        )
         map?.moveCamera(CameraUpdateFactory.newLatLngZoom(user_geo, 3f))
         map?.uiSettings?.isMyLocationButtonEnabled = false
         map?.uiSettings?.isTiltGesturesEnabled = false

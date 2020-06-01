@@ -14,7 +14,7 @@ import com.lswarss.ing_project.ui.PhotosViewModel
 import com.lswarss.ing_project.ui.PhotosViewModelFactory
 import kotlin.random.Random
 
-class PhotosFragment : Fragment(){
+class PhotosFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,10 +28,11 @@ class PhotosFragment : Fragment(){
         val userWithItem = PhotosFragmentArgs.fromBundle(requireArguments()).postProperties
 
         val viewModelFactory = PhotosViewModelFactory(userWithItem, application)
-        binding.viewModel = ViewModelProvider(this, viewModelFactory).get(PhotosViewModel::class.java)
+        binding.viewModel =
+            ViewModelProvider(this, viewModelFactory).get(PhotosViewModel::class.java)
 
-        binding.recyclerViewPosts.adapter = PhotosAdapter(PhotosAdapter.OnClickListener{
-            val random =  Random.nextInt(0,3)
+        binding.recyclerViewPosts.adapter = PhotosAdapter(PhotosAdapter.OnClickListener {
+            val random = Random.nextInt(0, 3)
             val mediaPlayer = SoundPicker(random)
             mediaPlayer.isLooping
             mediaPlayer.start()
@@ -47,18 +48,14 @@ class PhotosFragment : Fragment(){
      * # Files with wav extensions are shown as an error but it's totally fine, android studio have
      * some problems with them
      */
-    private fun SoundPicker(random : Int) : MediaPlayer
-    {
-        if(random == 0){
-           return MediaPlayer.create(context, R.raw.kick)
-        }
-        else if(random == 1){
+    private fun SoundPicker(random: Int): MediaPlayer {
+        if (random == 0) {
+            return MediaPlayer.create(context, R.raw.kick)
+        } else if (random == 1) {
             return MediaPlayer.create(context, R.raw.clap)
-        }
-        else if(random == 2) {
+        } else if (random == 2) {
             return MediaPlayer.create(context, R.raw.ht)
-        }
-        else{
+        } else {
             return MediaPlayer.create(context, R.raw.bongo)
         }
     }

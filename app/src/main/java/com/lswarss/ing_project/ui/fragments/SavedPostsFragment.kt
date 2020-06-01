@@ -19,11 +19,11 @@ import com.lswarss.ing_project.ui.PostsViewModelProviderFactory
 
 class SavedPostsFragment : Fragment() {
 
-    private val viewModel : PostsViewModel by lazy {
+    private val viewModel: PostsViewModel by lazy {
         ViewModelProvider(this).get(PostsViewModel::class.java)
     }
 
-    lateinit var savedPostsAdapter : PostsAdapter
+    lateinit var savedPostsAdapter: PostsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,21 +32,22 @@ class SavedPostsFragment : Fragment() {
     ): View? {
         val binding = FragmentPostsBinding.inflate(inflater)
         binding.lifecycleOwner = this
-        var db : PostsDatabase = (activity as MainActivity).postsDatabase!!
+        var db: PostsDatabase = (activity as MainActivity).postsDatabase!!
 
         var repository = PostsRepository(db)
         val viewModelFactory = PostsViewModelProviderFactory(repository)
-        binding.viewModel =  ViewModelProvider(this, viewModelFactory).get(PostsViewModel::class.java)
+        binding.viewModel =
+            ViewModelProvider(this, viewModelFactory).get(PostsViewModel::class.java)
 
         viewModel.getSavedPosts()
 
-        binding.recyclerViewPosts.apply{
-            layoutManager = GridLayoutManager(activity,1)
-            adapter = PostsAdapter(PostsAdapter.OnUserListener{
+        binding.recyclerViewPosts.apply {
+            layoutManager = GridLayoutManager(activity, 1)
+            adapter = PostsAdapter(PostsAdapter.OnUserListener {
 //                viewModel.displayUserDetail(it)
-            }, PostsAdapter.OnCommentsListener{
+            }, PostsAdapter.OnCommentsListener {
                 viewModel.displayCommentsForPost(it)
-            }, PostsAdapter.OnSaveListener{
+            }, PostsAdapter.OnSaveListener {
                 viewModel.deletePost(it)
             })
 
@@ -55,14 +56,14 @@ class SavedPostsFragment : Fragment() {
         }
 
         viewModel.navigateToSelectedUser.observe(viewLifecycleOwner, Observer {
-            if(null != it){
+            if (null != it) {
                 this.findNavController().navigate(PostsFragmentDirections.navigationToUser(it))
                 viewModel.displayUserDetailComplete()
             }
         })
 
         viewModel.navigateToSelectedComments.observe(viewLifecycleOwner, Observer {
-            if(null != it){
+            if (null != it) {
                 this.findNavController().navigate(PostsFragmentDirections.navigationToComments(it))
                 viewModel.displayCommentsForPostComplete()
             }
@@ -76,8 +77,6 @@ class SavedPostsFragment : Fragment() {
 
         return binding.root
     }
-
-
 
 
 }

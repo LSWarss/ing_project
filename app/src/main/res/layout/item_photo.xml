@@ -5,6 +5,7 @@
     tools:context=".ui.fragments.PhotosFragment">
 
     <data>
+
         <variable
             name="photo"
             type="com.lswarss.ing_project.domain.PhotoItem" />
@@ -17,6 +18,5 @@
         android:adjustViewBounds="true"
         android:padding="2dp"
         app:imageURL="@{photo.url}"
-        tools:src="@tools:sample/avatars"
-        />
+        tools:src="@tools:sample/avatars" />
 </layout>
